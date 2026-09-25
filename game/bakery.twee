@@ -1,0 +1,13 @@
+:: PCBakery [nobr]
+<<set $outside to 0>>
+<<set $location to "town">>
+<<set $bus to "pc_bakery">>
+<<pcBakeryUI>>
+
+<br>
+<<link "返回峭壁街" "Cliff Street">>
+    <<set _pcbRun to setup.pcBakery.sync().session>>
+    <<if _pcbRun and _pcbRun.phase isnot "closed" and !_pcbRun.paused>>
+        <<run setup.pcBakery.pause()>>
+    <</if>>
+<</link>>
