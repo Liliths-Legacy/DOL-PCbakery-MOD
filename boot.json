@@ -1,17 +1,19 @@
 {
   "name": "PCBakery",
-  "version": "0.4.6",
+  "version": "0.5.1",
   "scriptFileList": [
     "scripts/food-baseline.js",
     "scripts/legacy.js",
     "scripts/core.js",
-    "scripts/bakery.js"
+    "scripts/bakery.js",
+    "scripts/hunting.js"
   ],
   "styleFileList": [
     "styles/bakery.css"
   ],
   "tweeFileList": [
-    "game/bakery.twee"
+    "game/bakery.twee",
+    "game/hunting.twee"
   ],
   "imgFileList": [
     "img/misc/icon/pc-bakery.png"

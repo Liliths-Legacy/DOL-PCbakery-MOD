@@ -429,6 +429,7 @@
             parent.append(pane);
         }
         function render() {
+            const top = root.querySelector('.pcb-grid')?.scrollTop || 0;
             root.replaceChildren();
             if (notice) root.append(node('p', notice, 'pcb-notice'));
             const kitchen = node('section', undefined, 'pcb-kitchen pcb-outside-kitchen');
@@ -462,6 +463,7 @@
             }
             if (!grid.children.length) grid.append(node('p', '没有符合条件的已解锁食谱。'));
             kitchen.append(grid); root.append(kitchen);
+            grid.scrollTop = top;
         }
         render();
     }

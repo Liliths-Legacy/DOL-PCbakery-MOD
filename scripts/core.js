@@ -341,7 +341,7 @@
             else offers();
         }
         function pause() { const r = run(); r.paused = true; }
-        return { version: '0.4.6', RENT, BUFFS, state, sync, leased, isOpenTime, known, amount, category, chain,
+        return { version: '0.4.7', RENT, BUFFS, state, sync, leased, isOpenTime, known, amount, category, chain,
             recipes, sellable, basePrice, rent, start, chooseBuff, accept, canCook, cook, kitchenRules, setKitchenRules, canCookStandalone, cookStandalone, select, remove, validate, submit, abandon, next,
             pause, close: () => { run(); finish('主动打烊'); }, available };
     };
