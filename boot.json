@@ -1,6 +1,6 @@
 {
   "name": "PCBakery",
-  "version": "0.4.0",
+  "version": "0.4.6",
   "scriptFileList": [
     "scripts/food-baseline.js",
     "scripts/legacy.js",

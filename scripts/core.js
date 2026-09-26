@@ -189,9 +189,13 @@
             }
             return { ok: true, needed };
         }
+        let kitchenRulesOverride = null;
         function kitchenRules() {
-            const rules = typeof env.kitchenRules === 'function' ? env.kitchenRules() : {};
+            const rules = kitchenRulesOverride || (typeof env.kitchenRules === 'function' ? env.kitchenRules() : {});
             return rules && typeof rules === 'object' ? rules : {};
+        }
+        function setKitchenRules(rules) {
+            kitchenRulesOverride = rules && typeof rules === 'object' ? rules : null;
         }
         function canCookStandalone(key) {
             const item = catalog()[key], recipe = item?.recipe;
@@ -201,7 +205,7 @@
             const needed = {};
             for (const ingredient of recipe.ingredients) needed[ingredient] = (needed[ingredient] || 0) + 1;
             for (const [ingredient, count] of Object.entries(needed)) {
-                if (typeof rules.allowed === 'function' && !rules.allowed(ingredient)) return { ok: false, reason: '食材受此厨房限制' };
+                if (!supplied.has(ingredient) && typeof rules.allowed === 'function' && !rules.allowed(ingredient)) return { ok: false, reason: '食材受此厨房限制' };
                 if (!supplied.has(ingredient) && amount(ingredient) < count) return { ok: false, reason: '缺料' };
             }
             if (Number.isFinite(rules.hourRestriction)) {
@@ -337,8 +341,8 @@
             else offers();
         }
         function pause() { const r = run(); r.paused = true; }
-        return { version: '0.4.0', RENT, BUFFS, state, sync, leased, isOpenTime, known, amount, category, chain,
-            recipes, sellable, basePrice, rent, start, chooseBuff, accept, canCook, cook, kitchenRules, canCookStandalone, cookStandalone, select, remove, validate, submit, abandon, next,
+        return { version: '0.4.6', RENT, BUFFS, state, sync, leased, isOpenTime, known, amount, category, chain,
+            recipes, sellable, basePrice, rent, start, chooseBuff, accept, canCook, cook, kitchenRules, setKitchenRules, canCookStandalone, cookStandalone, select, remove, validate, submit, abandon, next,
             pause, close: () => { run(); finish('主动打烊'); }, available };
     };
 })();
