@@ -1,6 +1,6 @@
 {
   "name": "PCBakery",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "scriptFileList": [
     "scripts/food-baseline.js",
     "scripts/legacy.js",
@@ -13,7 +13,9 @@
   "tweeFileList": [
     "game/bakery.twee"
   ],
-  "imgFileList": [],
+  "imgFileList": [
+    "img/misc/icon/pc-bakery.png"
+  ],
   "dependenceInfo": [
     {
       "modName": "ModLoader",
@@ -22,6 +24,18 @@
     {
       "modName": "GameVersion",
       "version": "=0.5.8.10 || =0.5.11.9"
+    },
+    {
+      "modName": "ModLoader DoL ImageLoaderHook",
+      "version": "^2.3.0"
+    }
+  ],
+  "addonPlugin": [
+    {
+      "modName": "ModLoader DoL ImageLoaderHook",
+      "addonName": "ImageLoaderAddon",
+      "modVersion": "^2.3.0",
+      "params": []
     }
   ]
 }

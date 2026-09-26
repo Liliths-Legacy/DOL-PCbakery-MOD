@@ -189,6 +189,41 @@
             }
             return { ok: true, needed };
         }
+        function kitchenRules() {
+            const rules = typeof env.kitchenRules === 'function' ? env.kitchenRules() : {};
+            return rules && typeof rules === 'object' ? rules : {};
+        }
+        function canCookStandalone(key) {
+            const item = catalog()[key], recipe = item?.recipe;
+            if (!known(key) || !recipe?.ingredients?.length) return { ok: false, reason: '未解锁' };
+            if (env.tired()) return { ok: false, reason: '太疲惫' };
+            const rules = kitchenRules(), supplied = new Set(Array.isArray(rules.supplied) ? rules.supplied : []);
+            const needed = {};
+            for (const ingredient of recipe.ingredients) needed[ingredient] = (needed[ingredient] || 0) + 1;
+            for (const [ingredient, count] of Object.entries(needed)) {
+                if (typeof rules.allowed === 'function' && !rules.allowed(ingredient)) return { ok: false, reason: '食材受此厨房限制' };
+                if (!supplied.has(ingredient) && amount(ingredient) < count) return { ok: false, reason: '缺料' };
+            }
+            if (Number.isFinite(rules.hourRestriction)) {
+                const future = env.minutes() + Number(recipe.cook_minutes) || env.minutes();
+                const hour = Math.floor((future % 1440) / 60), minute = future % 60;
+                if (!(hour < rules.hourRestriction || minute <= 15)) return { ok: false, reason: '制作后超过厨房开放时间' };
+            }
+            return { ok: true, needed };
+        }
+        function cookStandalone(key) {
+            const check = canCookStandalone(key);
+            if (!check.ok) fail(check.reason);
+            const recipe = catalog()[key].recipe, rules = kitchenRules();
+            const supplied = new Set(Array.isArray(rules.supplied) ? rules.supplied : []);
+            for (const [ingredient, count] of Object.entries(check.needed)) {
+                if (!supplied.has(ingredient)) inventory()[ingredient].amount -= count;
+            }
+            inventory()[key] = inventory()[key] || { amount: 0 };
+            inventory()[key].amount = (Number(inventory()[key].amount) || 0) + recipe.servings;
+            env.pass(recipe.cook_minutes);
+            return recipe.servings;
+        }
         function cook(key) {
             const r = order(), check = canCook(key);
             if (!check.ok) fail(check.reason);
@@ -302,8 +337,8 @@
             else offers();
         }
         function pause() { const r = run(); r.paused = true; }
-        return { version: '0.3.3', RENT, BUFFS, state, sync, leased, isOpenTime, known, amount, category, chain,
-            recipes, sellable, basePrice, rent, start, chooseBuff, accept, canCook, cook, select, remove, validate, submit, abandon, next,
+        return { version: '0.4.0', RENT, BUFFS, state, sync, leased, isOpenTime, known, amount, category, chain,
+            recipes, sellable, basePrice, rent, start, chooseBuff, accept, canCook, cook, kitchenRules, canCookStandalone, cookStandalone, select, remove, validate, submit, abandon, next,
             pause, close: () => { run(); finish('主动打烊'); }, available };
     };
 })();

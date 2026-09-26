@@ -41,6 +41,11 @@
 .pcb-muted { margin-left: .5rem; font-size: .8em; opacity: .7; }
 .pcb-empty { font-size: .85em; opacity: .7; padding: .3rem 0; }
 .pcb-notice { color: #edb97b; }
+.pcb-settings { display: block; padding: .65rem 0; }
+.pcb-settings label { display: flex; align-items: center; gap: .45rem; }
+.pcb-settings input { margin: 0; }
+.pcb-settings .small-description { margin: .35rem 0 0 1.55rem; font-size: .85em; opacity: .8; }
+.pcb-settings-tab { white-space: nowrap; }
 @media(max-width: 500px) {
     .pcb-book { margin-left: 0; }
     .pcb-ingredients { grid-template-columns: 1fr; }

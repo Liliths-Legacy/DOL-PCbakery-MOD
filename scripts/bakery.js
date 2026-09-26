@@ -54,7 +54,15 @@
         random: () => random(0, 1000000) / 1000001,
         tired: () => State.variables.tiredness >= C.tiredness.max,
         pass: minutes => Wikifier.wikifyEval('<<pass ' + minutes + '>>'),
-        money: value => Wikifier.wikifyEval('<<money ' + value + '>>')
+        money: value => Wikifier.wikifyEval('<<money ' + value + '>>'),
+        kitchenRules: () => {
+            const temporary = State.temporary || {};
+            return {
+                supplied: Array.isArray(temporary._ingredientsSupplied) ? temporary._ingredientsSupplied.slice() : [],
+                hourRestriction: temporary._hourRestriction,
+                allowed: typeof window.ingredientIsAllowed === 'function' ? window.ingredientIsAllowed : undefined
+            };
+        }
     });
     api.compatibilityReport = () => {
         const data = foodCatalog();
@@ -336,20 +344,152 @@
         }
         render();
     }
+    function mountOutsideKitchen(root) {
+        let filter = '全部', search = '', book = [], notice = '', busy = false;
+        const kitchenFilters = ['全部', '甜品', '菜肴', '饮料', '原料'];
+        const act = fn => {
+            if (busy) return;
+            busy = true; notice = '';
+            const beforeTime = Time.date.timeStamp;
+            try { fn(); } catch (err) { notice = err.message; }
+            finally {
+                busy = false;
+                if (root.isConnected) {
+                    render();
+                    // Standalone kitchen actions advance the game clock in-place.
+                    // Refresh the game's sidebar immediately, just like the bakery UI.
+                    if (Time.date.timeStamp !== beforeTime && typeof UIBar !== 'undefined' && typeof UIBar.update === 'function') UIBar.update();
+                }
+            }
+        };
+        const action = fn => () => act(fn);
+        function renderBook(parent, key) {
+            const item = foodCatalog()[key], recipe = item?.recipe;
+            if (!item) return;
+            const pane = node('section', undefined, 'pcb-book');
+            pane.id = 'pcb-outside-recipe-' + key;
+            const head = node('div', undefined, 'pcb-book-heading');
+            head.append(foodIcon(key), node('strong', label(key)));
+            head.append(textAction('收起', action(() => { book = []; })));
+            pane.append(head);
+            if (recipe?.ingredients?.length) {
+                pane.append(node('div', recipe.cook_minutes + ' 分钟 · 产出 ' + recipe.servings + ' 份', 'pcb-recipe-meta'));
+                const ingredients = node('div', undefined, 'pcb-ingredients');
+                const needed = {};
+                for (const ingredient of recipe.ingredients) needed[ingredient] = (needed[ingredient] || 0) + 1;
+                const supplied = new Set(api.kitchenRules().supplied || []);
+                for (const [ingredient, count] of Object.entries(needed)) {
+                    const row = node('div', undefined, 'pcb-ingredient');
+                    row.append(node('div', label(ingredient) + ' ×' + count, 'pcb-ingredient-name'),
+                        node('div', supplied.has(ingredient) ? '厨房提供 ∞' : '库存 ' + api.amount(ingredient), 'pcb-stock-count'));
+                    ingredients.append(row);
+                }
+                const check = api.canCookStandalone(key);
+                pane.append(textAction('制作', action(() => api.cookStandalone(key)), !check.ok,
+                    check.ok ? '制作一批' + label(key) : check.reason));
+                if (!check.ok) pane.append(node('span', check.reason, 'pcb-muted'));
+            } else pane.append(node('div', '基础原料 · 库存 ' + api.amount(key), 'pcb-recipe-meta'));
+            parent.append(pane);
+        }
+        function render() {
+            root.replaceChildren();
+            if (notice) root.append(node('p', notice, 'pcb-notice'));
+            const kitchen = node('section', undefined, 'pcb-kitchen pcb-outside-kitchen');
+            kitchen.append(node('h3', '食谱', 'pcb-section-heading'));
+            const tabs = node('nav', undefined, 'pcb-row');
+            for (const name of kitchenFilters) {
+                const tab = textAction(name, action(() => { filter = name; }));
+                tab.setAttribute('aria-pressed', String(filter === name)); tabs.append(tab);
+            }
+            const input = node('input'); input.type = 'search'; input.placeholder = '搜索食谱'; input.value = search;
+            input.setAttribute('aria-label', '搜索食谱');
+            input.addEventListener('input', () => { search = input.value; render(); });
+            kitchen.append(tabs, input);
+            const grid = node('div', undefined, 'pcb-grid');
+            for (const key of api.recipes()) {
+                if (filter !== '全部' && api.category(key) !== filter) continue;
+                const name = label(key);
+                if (search && !name.toLowerCase().includes(search.toLowerCase()) && !key.includes(search.toLowerCase())) continue;
+                const item = foodCatalog()[key], recipe = item.recipe, check = api.canCookStandalone(key);
+                const card = node('article', undefined, 'pcb-card');
+                const summary = node('div', undefined, 'pcb-food-summary');
+                summary.append(foodIcon(key), node('span', name, 'pcb-food-name'), node('span', '库存 ' + api.amount(key), 'pcb-price'));
+                const actions = node('div', undefined, 'pcb-actions');
+                const details = textAction('详情', action(() => { book = book[0] === key ? [] : [key]; }));
+                details.setAttribute('aria-expanded', String(book[0] === key));
+                actions.append(details, textAction('制作', action(() => api.cookStandalone(key)),
+                    !recipe?.ingredients?.length || !check.ok, check.ok ? '制作一批' : check.reason));
+                card.append(summary, actions);
+                if (book[0] === key) renderBook(card, key);
+                grid.append(card);
+            }
+            if (!grid.children.length) grid.append(node('p', '没有符合条件的已解锁食谱。'));
+            kitchen.append(grid); root.append(kitchen);
+        }
+        render();
+    }
+    function renderBakerySettings(parent) {
+        const options = State.variables.options || (State.variables.options = {});
+        const row = node('div', undefined, 'settingsToggleItem pcb-settings');
+        const labelNode = node('label');
+        const input = node('input'); input.type = 'checkbox'; input.checked = options.pcBakeryReplaceKitchen === true;
+        input.addEventListener('change', () => { options.pcBakeryReplaceKitchen = input.checked; });
+        labelNode.append(input, node('span', '面包坊外是否替换原版厨房'));
+        row.append(labelNode, node('p', '开启后，原版厨房会使用面包坊的食谱界面，只保留详情和制作。', 'small-description'));
+        parent.append(row);
+    }
+    function installBakerySettingsTab() {
+        if (!document?.querySelector) return;
+        for (const tabs of document.querySelectorAll('#overlayTabs')) {
+            const names = Array.from(tabs.querySelectorAll('button')).map(button => button.textContent.trim());
+            const isOptionsTabs = ['General', 'Theme', 'Performance', 'Advanced', 'Information', '通用', '主题', '性能', '高级', '信息']
+                .some(name => names.includes(name));
+            if (!isOptionsTabs || tabs.querySelector('.pcb-settings-tab')) continue;
+            const tab = node('button', 'PC面包坊', 'pcb-settings-tab');
+            tab.type = 'button';
+            tab.addEventListener('click', () => {
+                const content = document.querySelector('#customOverlayContent');
+                if (!content) return;
+                tabs.querySelectorAll('button').forEach(button => button.classList.remove('active'));
+                tab.classList.add('active'); content.replaceChildren(); renderBakerySettings(content);
+            });
+            tabs.append(tab);
+        }
+    }
+    function installBakerySettingsObserver() {
+        if (typeof MutationObserver !== 'function' || !document?.body) return;
+        const observer = new MutationObserver(installBakerySettingsTab);
+        observer.observe(document.body, { childList: true, subtree: true });
+        installBakerySettingsTab();
+    }
     Macro.add('pcBakeryUI', { handler() {
         const root = node('div', undefined, 'pc-bakery'); this.output.append(root);
         try { mount(root); } catch (err) { root.append(node('p', err.message, 'pcb-notice'), button('返回峭壁街', () => Engine.play('Cliff Street'))); }
     }});
     // The beach link is inside the original Places of interest branch, never a forced event.
     $(document).on(':passagerender.pcBakery', event => {
+        // Every original kitchen eventually renders this shared root, including the
+        // Avery mansion kitchen which calls it from a nested widget. Detect the root
+        // instead of maintaining a passage-name list that can miss future kitchens.
+        if (State.variables.options?.pcBakeryReplaceKitchen === true) {
+            const original = event.content.querySelector('#kitchenDisplay');
+            if (original && !original.closest('.pc-bakery')) {
+                const replacement = node('div', undefined, 'pc-bakery');
+                original.replaceWith(replacement);
+                try { mountOutsideKitchen(replacement); }
+                catch (err) { replacement.append(node('p', err.message, 'pcb-notice')); }
+            }
+        }
         if (event.passage.title !== 'Cliff Street') return;
         const content = event.content;
         const beach = content.querySelector('a[data-passage="Beach"]');
         if (!beach || content.querySelector('.pcb-street')) return;
         const wrap = node('span', undefined, 'pcb-street');
         const text = State.variables.pcBakery?.leaseUntil ? '面包坊 (0:01)' : '面包坊出租告示 (0:01)';
-        new Wikifier(wrap, '<br><<cafeicon>><<link ' + JSON.stringify(text) + ' "PCBakery">><<pass 1>><</link>>');
+        new Wikifier(wrap, '<br><<icon "pc-bakery.png">><<link ' + JSON.stringify(text) + ' "PCBakery">><<pass 1>><</link>>');
         // Retain the street's existing following line break, keeping this a peer of its other places.
         beach.parentNode.insertBefore(wrap, beach.nextSibling);
     });
+    $(document).on(':dialogopened.pcBakery :passagedisplay.pcBakery', installBakerySettingsTab);
+    installBakerySettingsObserver();
 })();
