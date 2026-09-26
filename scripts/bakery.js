@@ -57,9 +57,21 @@
         money: value => Wikifier.wikifyEval('<<money ' + value + '>>'),
         kitchenRules: () => {
             const temporary = State.temporary || {};
+            const legacyTemporary = typeof T !== 'undefined' && T && typeof T === 'object' ? T
+                : window.T && typeof window.T === 'object' ? window.T : {};
+            const read = name => temporary[name] ?? legacyTemporary[name] ?? temporary['_' + name] ?? legacyTemporary['_' + name];
+            let supplied = read('ingredientsSupplied');
+            // Avery's kitchen builds its supplied list from save data inside a
+            // widget. Read that source directly as a fallback so the list remains
+            // available after SugarCube clears its temporary widget variables.
+            const mansion = State.variables.avery_mansion;
+            if ((!Array.isArray(supplied) || supplied.length === 0) && State.variables.bus === 'avery_kitchen' && mansion?.kitchen_stock) {
+                supplied = (mansion.kitchen_stock.normal || []).concat(mansion.kitchen_stock.requested || []);
+            }
             return {
-                supplied: Array.isArray(temporary._ingredientsSupplied) ? temporary._ingredientsSupplied.slice() : [],
-                hourRestriction: temporary._hourRestriction,
+                // Capture both SugarCube temporary-variable access forms.
+                supplied: Array.isArray(supplied) ? supplied.slice() : [],
+                hourRestriction: read('hourRestriction'),
                 allowed: typeof window.ingredientIsAllowed === 'function' ? window.ingredientIsAllowed : undefined
             };
         }
@@ -77,6 +89,20 @@
             new Wikifier(holder, '<<recipe_name ' + JSON.stringify(key) + '>>');
             return holder.querySelector('.error') ? foodCatalog()[key]?.name || key : holder.textContent;
         } catch (_) { return foodCatalog()[key]?.name || key; }
+    };
+    const recipeIngredients = (key, item) => {
+        const tables = [setup.foodstuff, setup.plants].filter(table => table && typeof table === 'object');
+        const runtimeItem = tables.map(table => table[key]).find(Boolean)
+            || tables.flatMap(table => Object.values(table)).find(candidate =>
+                candidate && (candidate.name === item?.name || candidate.name === key));
+        const raw = item?.recipe?.ingredients ?? item?.ingredients
+            ?? runtimeItem?.recipe?.ingredients ?? runtimeItem?.ingredients;
+        let values;
+        if (Array.isArray(raw)) values = raw;
+        else if (raw && typeof raw === 'object' && typeof raw.length === 'number') values = Array.from(raw);
+        else if (raw && typeof raw === 'object') values = Object.values(raw);
+        else values = [];
+        return values.map(value => typeof value === 'string' ? value : value?.key || value?.name).filter(Boolean);
     };
     function node(tag, text, cls) {
         const el = document.createElement(tag);
@@ -366,24 +392,35 @@
         function renderBook(parent, key) {
             const item = foodCatalog()[key], recipe = item?.recipe;
             if (!item) return;
+            const ingredientsList = recipeIngredients(key, item);
+            const displayIngredients = ingredientsList.length ? ingredientsList
+                : (typeof api.chain === 'function' ? (api.chain(key) || []) : []);
             const pane = node('section', undefined, 'pcb-book');
             pane.id = 'pcb-outside-recipe-' + key;
             const head = node('div', undefined, 'pcb-book-heading');
             head.append(foodIcon(key), node('strong', label(key)));
-            head.append(textAction('收起', action(() => { book = []; })));
+            const headActions = node('div', undefined, 'pcb-actions');
+            if (book.length > 1) headActions.append(textAction('返回上级', action(() => book.pop())));
+            headActions.append(textAction('收起', action(() => { book = []; })));
+            head.append(headActions);
             pane.append(head);
-            if (recipe?.ingredients?.length) {
+            if (displayIngredients.length) {
                 pane.append(node('div', recipe.cook_minutes + ' 分钟 · 产出 ' + recipe.servings + ' 份', 'pcb-recipe-meta'));
                 const ingredients = node('div', undefined, 'pcb-ingredients');
                 const needed = {};
-                for (const ingredient of recipe.ingredients) needed[ingredient] = (needed[ingredient] || 0) + 1;
+                for (const ingredient of displayIngredients) needed[ingredient] = (needed[ingredient] || 0) + 1;
                 const supplied = new Set(api.kitchenRules().supplied || []);
                 for (const [ingredient, count] of Object.entries(needed)) {
                     const row = node('div', undefined, 'pcb-ingredient');
-                    row.append(node('div', label(ingredient) + ' ×' + count, 'pcb-ingredient-name'),
+                    const ingredientName = node('div', undefined, 'pcb-ingredient-name');
+                    ingredientName.append(foodIcon(ingredient), textAction(label(ingredient), action(() => {
+                        if (!book.includes(ingredient) && foodCatalog()[ingredient]?.recipe?.ingredients?.length) book.push(ingredient);
+                    }), false, '查看' + label(ingredient) + '的食谱'), node('span', '×' + count));
+                    row.append(ingredientName,
                         node('div', supplied.has(ingredient) ? '厨房提供 ∞' : '库存 ' + api.amount(ingredient), 'pcb-stock-count'));
                     ingredients.append(row);
                 }
+                pane.append(ingredients);
                 const check = api.canCookStandalone(key);
                 pane.append(textAction('制作', action(() => api.cookStandalone(key)), !check.ok,
                     check.ok ? '制作一批' + label(key) : check.reason));
@@ -410,7 +447,7 @@
                 if (filter !== '全部' && api.category(key) !== filter) continue;
                 const name = label(key);
                 if (search && !name.toLowerCase().includes(search.toLowerCase()) && !key.includes(search.toLowerCase())) continue;
-                const item = foodCatalog()[key], recipe = item.recipe, check = api.canCookStandalone(key);
+                const item = foodCatalog()[key], recipe = item.recipe, ingredientsList = recipeIngredients(key, item), check = api.canCookStandalone(key);
                 const card = node('article', undefined, 'pcb-card');
                 const summary = node('div', undefined, 'pcb-food-summary');
                 summary.append(foodIcon(key), node('span', name, 'pcb-food-name'), node('span', '库存 ' + api.amount(key), 'pcb-price'));
@@ -418,7 +455,7 @@
                 const details = textAction('详情', action(() => { book = book[0] === key ? [] : [key]; }));
                 details.setAttribute('aria-expanded', String(book[0] === key));
                 actions.append(details, textAction('制作', action(() => api.cookStandalone(key)),
-                    !recipe?.ingredients?.length || !check.ok, check.ok ? '制作一批' : check.reason));
+                    !ingredientsList.length || !check.ok, check.ok ? '制作一批' : check.reason));
                 card.append(summary, actions);
                 if (book[0] === key) renderBook(card, key);
                 grid.append(card);
@@ -474,6 +511,9 @@
         if (State.variables.options?.pcBakeryReplaceKitchen === true) {
             const original = event.content.querySelector('#kitchenDisplay');
             if (original && !original.closest('.pc-bakery')) {
+                // The kitchen widgets build their supplied-ingredient list in
+                // temporary state. Capture it before the passage context is gone.
+                api.setKitchenRules(api.kitchenRules());
                 const replacement = node('div', undefined, 'pc-bakery');
                 original.replaceWith(replacement);
                 try { mountOutsideKitchen(replacement); }
