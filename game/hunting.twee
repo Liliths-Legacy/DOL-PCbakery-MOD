@@ -1,0 +1,162 @@
+:: PCBakery Hunt Ask [nobr]
+<<npc Eden>><<person1>><<effects>>
+<<set $pcBakeryHunt.asked to true>>
+你向伊甸询问，能不能也给你做一杆猎枪。你保证打到猎物后会带回来，请<<nnpc_him "Eden">>帮忙处理。
+<br><br>
+伊甸皱起眉，没有立刻回答。你从<<nnpc_his "Eden">>的表情看得出，<<nnpc_he "Eden">>并不赞成。
+<br><br>
+“打猎没有你想的那么简单。枪法只是一部分，你还得了解猎物，留意周围的动静。否则，一杆枪只会让你轻视它们。”
+<br><br>
+<<nnpc_He "Eden">>停了一会儿，望着你的眼睛，语气软下来。“我只是不想你受伤。”
+<br><br>
+你轻轻抱住<<nnpc_him "Eden">>，表示理解。看来你得另想办法。
+<br><br>
+<<getouticon>><<link [[等待时机|Eden Cabin]]>><<endevent>><</link>>
+
+:: PCBakery Hunt Take [nobr]
+<<effects>>
+<<if setup.pcBakeryHunt.canTake()>>
+    <<set $pcBakeryHunt.rifle to true>>
+    伊甸外出打猎了。你在小屋里找到一杆备用猎枪，把它从高处取下来。枪身比你记忆中的更沉，想起伊甸的叮嘱，你握紧了它。
+    <br><br>
+    <span class="gold">你拿到了伊甸的备用猎枪，现在可以尝试打猎。</span>
+<<else>>
+    现在没有机会拿走猎枪。
+<</if>>
+<br><br>
+<<getouticon>><<link [[返回小屋|Eden Cabin]]>><<endevent>><</link>>
+
+:: PCBakery Hunt Boar Forest [nobr]
+<<effects>>
+<<if $pcBakeryHunt.result?.success>>
+    你稳住枪口，等野猪冲进视线，才扣下扳机。枪响过后，它倒在林地里，再也没有起身。
+    <br><br>
+    <span class="green">你猎到一头野猪。</span>
+    <br><br>
+    <<getouticon>><<link [[继续前进|Forest]]>><<beastescape>><<set $eventskip to 1>><<endevent>><</link>>
+<<else>>
+    你扣下扳机，却没能击中要害。野猪已经冲到你跟前，你来不及再举枪。
+    <br><br>
+    <<link [[迎接冲撞|Forest Boar Rape]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: PCBakery Hunt Boar Lake [nobr]
+<<set $outside to 1>><<effects>><<lakeeffects>>
+<<if $pcBakeryHunt.result?.success>>
+    你瞄准湖畔的野猪。它才转过身，枪声就划破了空气。它倒在树下。
+    <br><br>
+    <span class="green">你猎到一头野猪。</span>
+    <br><br>
+    <<endevent>><<set $eventskip to 1>><<beastescape>>
+    <<destinationlake>>
+<<else>>
+    枪声惊动了野猪。你打偏了，它低下头朝你猛冲过来。
+    <br><br>
+    <<link [[迎接冲撞|Lake Boar Rape]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: PCBakery Hunt Bison [nobr]
+<<set $outside to 1>><<effects>>
+远处，零星几头野牛正在荒原上吃草。一头公牛抬起了头，随即又低头啃草。
+<br><br>
+<<getouticon>><<link [[绕过它们|Moor]]>><<set $eventskip to 1>><<endevent>><</link>>
+<br>
+<<edenicon "target">><<link [[尝试狩猎|PCBakery Hunt Bison Shot]]>><<run setup.pcBakeryHunt.shoot("bison")>><</link>>
+
+:: PCBakery Hunt Bison Shot [nobr]
+<<set $outside to 1>><<effects>>
+<<if $pcBakeryHunt.result?.success>>
+    你伏低身子，等到野牛落在枪口正中。枪响之后，牛群四散奔逃，只有你的猎物倒在地上。
+    <br><br>
+    <span class="green">你猎到一头野牛。</span>
+    <br><br>
+    <<getouticon>><<link [[继续前进|Moor]]>><<set $eventskip to 1>><<endevent>><</link>>
+<<else>>
+    你没能击中。野牛群受惊，领头的公牛发现了你，径直冲来。端着猎枪，你没法好好闪避。收枪的瞬间，你感到双脚离地，随后眼前一黑。
+    <br><br>
+    <<set $pain to $gamemode is "soft" ? 0 : 200>>
+    <<passout_moor>>
+<</if>>
+
+:: PCBakery Hunt Bison Wake [nobr]
+<<set $outside to 1>><<effects>>
+你在荒原上醒来。牛群已经走远，浑身的疼痛让你一时难以动弹。猎枪落在不远处，你把它捡了回来。
+<br><br>
+<span class="red">你疼得厉害。</span>
+<br><br>
+<<getouticon>><<link [[继续前进|Moor]]>><<set $eventskip to 1>><<endevent>><</link>>
+
+:: PCBakery Hunt Pheasant [nobr]
+<<set $outside to 1>><<effects>>
+几只褐色的野鸡在高草丛里移动。你几乎没看见它们，摇晃的草叶却引起了你的注意。
+<br><br>
+<<getouticon>><<link [[无视|Meadow]]>><<set $eventskip to 1>><<endevent>><</link>>
+<br>
+<<edenicon "target">><<link [[尝试狩猎|PCBakery Hunt Pheasant Shot]]>><<run setup.pcBakeryHunt.shoot("pheasant")>><</link>>
+
+:: PCBakery Hunt Pheasant Shot [nobr]
+<<set $outside to 1>><<effects>>
+<<if $pcBakeryHunt.result?.success>>
+    你循着草叶的动静抬枪。野鸡刚从草里飞起，你便扣下扳机。它落在不远处。
+    <br><br>
+    <span class="green">你猎到一只野鸡。</span>
+<<else>>
+    你没有打中。回过神来，野鸡已经消失得无影无踪。
+<</if>>
+<br><br>
+<<getouticon>><<link [[继续前进|Meadow]]>><<endevent>><</link>>
+
+:: PCBakery Hunt First [nobr]
+<<npc Eden>><<person1>><<effects>>
+<<run setup.pcBakeryHunt.startFirst()>>
+你把猎物拖进小屋，伊甸惊讶地睁大眼睛。还没等<<nnpc_he "Eden">>开口，你便为擅自拿走猎枪道歉。
+<br><br>
+<<nnpc_He "Eden">>看见你背后的枪，脸色沉下来。“你怎么能偷我的枪！”<<nnpc_He "Eden">>一把扯下猎枪，你踉跄了一下。伊甸高大的身影罩住你，你有些害怕，却仍拉住<<nnpc_his "Eden">>大衣的一角，抬头告诉<<nnpc_him "Eden">>：你确实学会了打猎。
+<br><br>
+<<nnpc_He "Eden">>看看你，又看看地上的猎物，最终把枪递还给你。
+<br><br>
+“好，你拿着。但要记住：森林里没有永远的猎人，谁都可能成为猎物。拿起枪之前，先想好自己要做什么。”
+<br><br>
+伊甸拖走了猎物，拿起刀具。“以后猎物都可以拿来给我处理。来吧，我们可以吃顿好的。”
+<br><br>
+<<foodicon "eat">><<link [[跟着过去|PCBakery Hunt First Meal]]>><<set _pcbhFirstType to $pcBakeryHunt.pendingFirstType>><<run setup.pcBakeryHunt.completeFirstIfNeeded()>><<if _pcbhFirstType>><<pass setup.pcBakeryHunt.TYPES[_pcbhFirstType].minutes>><</if>><</link>>
+
+:: PCBakery Hunt First Meal [nobr]
+<<npc Eden>><<person1>><<effects>>
+<<run setup.pcBakeryHunt.completeFirstIfNeeded()>>
+<<set _pcbhType to setup.pcBakeryHunt.TYPES[$pcBakeryHunt.lastProcessed] || {}>>
+<<set _pcbhFood to _pcbhType.food>>
+你们吃完饭，伊甸把剩下的肉晾在晾肉架上。
+<br><br>
+“你可以留一点鲜肉。”<<nnpc_He "Eden">>想起了什么，回头对你说。
+<br><br>
+你高兴地点头，向<<nnpc_him "Eden">>道谢。
+<br><br>
+<<if _pcbhFood>><span class="gold">获得<<print _pcbhType.amount>>份<<icon `"tending/" + _pcbhFood + ".png"`>><<print _pcbhFood === "beef" ? "牛肉" : _pcbhFood === "pork" ? "猪肉" : "鸡肉">>。今后可以请伊甸处理猎物。</span><<else>><span class="red">猎物还没有处理，请返回小屋后重试。</span><</if>>
+<br><br>
+<<getouticon>><<link [[返回小木屋|Eden Cabin]]>><<endevent>><</link>>
+
+:: PCBakery Hunt Process [nobr]
+<<npc Eden>><<person1>><<effects>>
+你向伊甸展示最近打到的猎物。<<nnpc_He "Eden">>点点头，拿出刀具。
+<br><br>
+<<if $pcBakeryHunt.trophies.boar gt 0>>
+    <<icon "tending/pork.png">><<link [[请伊甸处理野猪（0:45）|PCBakery Hunt Processed]]>><<run setup.pcBakeryHunt.process("boar")>><<pass 45>><</link>><br>
+<</if>>
+<<if $pcBakeryHunt.trophies.bison gt 0>>
+    <<icon "tending/beef.png">><<link [[请伊甸处理野牛（1:00）|PCBakery Hunt Processed]]>><<run setup.pcBakeryHunt.process("bison")>><<pass 60>><</link>><br>
+<</if>>
+<<if $pcBakeryHunt.trophies.pheasant gt 0>>
+    <<icon "tending/chicken.png">><<link [[请伊甸处理野鸡（0:10）|PCBakery Hunt Processed]]>><<run setup.pcBakeryHunt.process("pheasant")>><<pass 10>><</link>><br>
+<</if>>
+<<getouticon>><<link [[返回小屋|Eden Cabin]]>><<endevent>><</link>>
+
+:: PCBakery Hunt Processed [nobr]
+<<npc Eden>><<person1>><<effects>>
+<<set _pcbhType to setup.pcBakeryHunt.TYPES[$pcBakeryHunt.lastProcessed] || {}>>
+<<set _pcbhFood to _pcbhType.food>>
+不一会儿，猎物处理好了。伊甸把留给你的鲜肉包起来，交到你手中。
+<br><br>
+<<if _pcbhFood>><span class="gold">获得<<print _pcbhType.amount>>份<<icon `"tending/" + _pcbhFood + ".png"`>><<print _pcbhFood === "beef" ? "牛肉" : _pcbhFood === "pork" ? "猪肉" : "鸡肉">>。</span><<else>><span class="red">猎物还没有处理，请返回小屋后重试。</span><</if>>
+<br><br>
+<<getouticon>><<link [[返回小屋|Eden Cabin]]>><<endevent>><</link>>
