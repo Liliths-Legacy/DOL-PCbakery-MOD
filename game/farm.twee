@@ -1,0 +1,98 @@
+:: PCBakery Farm Widgets [widget]
+<<widget "pcBakeryWoodlandPlots">>
+<<run setup.pcBakeryFarm.ensurePlots()>>
+<<set _pcShrubLevel to setup.pcBakeryFarm.level("shrub")>>
+<<set _pcTreeLevel to setup.pcBakeryFarm.level("tree")>>
+<<if _pcShrubLevel gte 1>>
+<br>
+<span class="gold" data-pc-bakery-woodland>灌木地（<<print setup.pcBakeryFarm.count("shrub")>> 块）</span>
+<br>
+<<display_plot pcBakeryShrubs>>
+<</if>>
+<<if _pcTreeLevel gte 1>>
+<br>
+<span class="gold" data-pc-bakery-woodland>乔木地（<<print setup.pcBakeryFarm.count("tree")>> 块）</span>
+<br>
+<<display_plot pcBakeryTrees>>
+<</if>>
+<</widget>>
+
+<<widget "pcBakeryFarmUpgradeLine">>
+<<set _pcType to _args[0]>>
+<<set _pcUpgrade to setup.pcBakeryFarm.upgradeState(_pcType)>>
+<<set _pcNext to _pcUpgrade.next>>
+<<set _pcName to (_pcType is "shrub" ? "灌木地" : "乔木地")>>
+<<print _pcName>>：
+<<if _pcUpgrade.current gte 3>>
+    <span class="green">已达到最大规模（<<print _pcUpgrade.count>> 块）</span>
+<<elseif $farm.build is _pcNext.token>>
+    <span class="blue">正在建设，完成后有 <<print _pcNext.count>> 块土地</span>
+<<elseif $farm.build>>
+    <span class="blue">农场正在进行其他建设</span>
+<<elseif $farm.woodland < _pcNext.woodland>>
+    <span class="blue">需要林地达到 <<print _pcNext.woodland>> 级</span>
+<<elseif $money < _pcNext.cost>>
+    <span class="red">需要 £<<print Math.floor(_pcNext.cost / 100)>></span>
+<<else>>
+    <span class="blue">下一阶段：<<print _pcNext.count>> 块土地，费用 £<<print Math.floor(_pcNext.cost / 100)>>，施工 <<print _pcNext.days>> 天。</span>
+    <<capture _pcType>>
+        <<link "开始建设" $passage>>
+            <<if setup.pcBakeryFarm.startUpgrade(_pcType)>><<pass 20>><</if>>
+        <</link>>
+    <</capture>>
+<</if>>
+<br>
+<</widget>>
+
+<<widget "pcBakeryFarmUpgradeOptions">>
+<<if $farm_stage gte 7 and $farm.woodland gte 1>>
+<br>
+<span class="gold">PC 面包坊种植区：</span>
+<br>
+<<pcBakeryFarmUpgradeLine "shrub">>
+<<if $farm.woodland gte 2>><<pcBakeryFarmUpgradeLine "tree">><</if>>
+<</if>>
+<</widget>>
+
+<<widget "pcBakeryFarmNotice">>
+<<set _pcNotice to setup.pcBakeryFarm.takeNotice()>>
+<<if _pcNotice>>
+<br><span class="gold"><<print _pcNotice>></span><br>
+<</if>>
+<</widget>>
+
+:: PCBakery Woodland Plots [nobr]
+<<set $outside to 1>>
+<<set $location to "alex_farm">>
+<<effects>>
+
+你沿着林间小路走到一片被重新整理过的空地。高大的树木挡住了农场里的喧闹，只剩下风吹过枝叶的沙沙声，以及泥土和青草混在一起的气味。
+<br><br>
+
+这里的土地已经被划分成整齐的小块。木桩和细绳标出了边界，刚翻过的土壤还带着湿润的颜色。你可以在这里照料适合林地生长的灌木与乔木，等它们慢慢长成，再回来收获果实。
+<br><br>
+
+<<if setup.pcBakeryFarm.level("shrub") gte 1 and setup.pcBakeryFarm.level("tree") gte 1>>
+灌木地和乔木地分布在空地两侧，彼此之间留出了一条方便行走的小路。
+<<elseif setup.pcBakeryFarm.level("shrub") gte 1>>
+灌木地沿着林缘铺开，矮小的枝叶在风中轻轻摇晃。更深处的土地还等待着日后整理。
+<<elseif setup.pcBakeryFarm.level("tree") gte 1>>
+乔木地一直延伸到树林边缘，年轻的树苗在木桩之间留下整齐的影子。灌木区还没有开始建设。
+<</if>>
+<br><br><br>
+<<set _pcTreeCount to setup.pcBakeryFarm.count("tree")>>
+<<set _pcShrubCount to setup.pcBakeryFarm.count("shrub")>>
+<span class="gold">
+<<if _pcTreeCount is 0 and _pcShrubCount is 0>>
+目前还没有开垦好的田地。
+<<elseif _pcTreeCount gt 0 and _pcShrubCount gt 0>>
+目前有<<print _pcTreeCount>>块可用的乔木地，还有<<print _pcShrubCount>>块可用的灌木地。
+<<elseif _pcTreeCount gt 0>>
+目前有<<print _pcTreeCount>>块可用的乔木地。
+<<else>>
+目前有<<print _pcShrubCount>>块可用的灌木地。
+<</if>>
+</span>
+<br><br>
+<<pcBakeryWoodlandPlots>>
+<div class="pc-bakery-leave-option"><<getouticon>><<link [[返回林地 (0:00)|Farm Woodland]]>><</link>></div>

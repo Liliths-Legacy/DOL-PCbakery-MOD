@@ -100,6 +100,16 @@
         new Wikifier(wrap, markup + '<br>');
         anchor.parentNode.insertBefore(wrap, after ? after.nextSibling : null);
     }
+    function addRifleHint(content) {
+        if (content.querySelector('.pcb-hunt-hint')) return;
+        const wrap = document.createElement('span');
+        wrap.className = 'pcb-hunt-hint';
+        new Wikifier(wrap, '<span class="gold">墙上有一杆多余的猎枪，或许你可以在伊甸不在的时候拿到它。</span><br><br>');
+        const firstAction = content.querySelector('a[data-passage]');
+        const position = firstAction?.previousElementSibling || firstAction || content.querySelector('#gameVersionDisplay');
+        if (position) position.parentNode.insertBefore(wrap, position);
+        else content.append(wrap);
+    }
     $(document).on(':passagerender.pcBakeryHunt', event => {
         const content = event.content, title = event.passage.title, s = state();
         if (title === 'Cabin Eden Actions') {
@@ -110,9 +120,12 @@
                 const food = TYPES[firstTrophy()].food;
                 addLink(content, back, '<<icon "tending/' + food + '.png">><<link [[请求处理猎物|' + target + ']]>><</link>>', true);
             }
-        } else if (title === 'Cabin House Actions' && canTake()) {
-            const back = content.querySelector('a[data-passage="Eden Cabin"]');
-            addLink(content, back, '<<edenicon "target">><<link [[拿走伊甸的备用猎枪|PCBakery Hunt Take]]>><</link>>', true);
+        } else if (title === 'Cabin House Actions') {
+            if (s.asked && !s.rifle) addRifleHint(content);
+            if (canTake()) {
+                const back = content.querySelector('a[data-passage="Eden Cabin"]');
+                addLink(content, back, '<<edenicon "target">><<link [[拿走伊甸的备用猎枪|PCBakery Hunt Take]]>><</link>>', true);
+            }
         } else if (s.rifle && title === 'Forest') {
             const dodge = content.querySelector('a[data-passage="Forest Boar Dodge"]');
             if (dodge) addAfterChoiceLine(content, dodge, '<<edenicon "target">><<link [[瞄准射击|PCBakery Hunt Boar Forest]]>><<run setup.pcBakeryHunt.shoot("boar")>><</link>>');

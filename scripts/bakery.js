@@ -120,6 +120,38 @@
         if (hint) { el.title = hint; el.setAttribute('aria-label', hint); }
         return el;
     }
+    function buffIcon(key) {
+        const holder = node('span', undefined, 'pcb-buff-icon');
+        holder.setAttribute('aria-hidden', 'true');
+        if (State.variables.options?.images !== 0) new Wikifier(holder, '<<icon ' + JSON.stringify('pc-buff-' + key + '.png') + '>>');
+        return holder;
+    }
+    function buffButton(key, action) {
+        const value = api.BUFFS[key];
+        const el = button('', action);
+        el.className = 'pcb-buff-button';
+        el.append(buffIcon(key), node('span', value.name, 'pcb-order-kind'), node('span', ' | '));
+        const description = node('span');
+        const percent = /\+\d+%/g;
+        let start = 0, match;
+        while ((match = percent.exec(value.text))) {
+            if (match.index > start) description.append(node('span', value.text.slice(start, match.index)));
+            description.append(node('span', match[0], 'pcb-buff-percent'));
+            start = match.index + match[0].length;
+        }
+        if (start < value.text.length) description.append(node('span', value.text.slice(start)));
+        el.append(description);
+        return el;
+    }
+    function signAction(file, text, action) {
+        const el = textAction('', action);
+        el.className = 'pcb-text-action pcb-sign-action';
+        const icon = node('span', undefined, 'pcb-close-icon');
+        new Wikifier(icon, '<<icon ' + JSON.stringify(file) + '>>');
+        el.append(icon, node('span', text));
+        return el;
+    }
+    const orderIcons = { single: 'precision', pair: 'pairing', bulk: 'bulk', tasting: 'variety', custom: 'custom' };
     function foodIcon(key) {
         const holder = node('span', undefined, 'pcb-food-icon');
         holder.setAttribute('aria-hidden', 'true');
@@ -147,6 +179,28 @@
             if (o.ingredient) details.push('至少一份含' + label(o.ingredient));
         }
         return (o.label ? o.label + '：' : '') + '提交 ' + o.count + ' 份食物' + (details.length ? '，' + details.join('，') : '');
+    }
+    function orderOfferButton(o, action) {
+        const el = textAction('', action);
+        el.className = 'pcb-text-action pcb-order-button';
+        el.append(buffIcon(orderIcons[o.kind] || 'custom'), node('span', o.label || '订单', 'pcb-order-kind'),
+            node('span', ' | ', 'pcb-order-separator'), node('span', '提交' + o.count + '份食物'));
+        for (const requirement of (Array.isArray(o.requirements) ? o.requirements : [])) {
+            let text = '';
+            if (requirement.type === 'category') text = (requirement.mode === 'all' ? '全部' : '至少一份') + requirement.value;
+            else if (requirement.type === 'distinctFoods') text = '至少' + requirement.value + '种不同食物';
+            else if (requirement.type === 'distinctCategories') text = '至少' + requirement.value + '种不同品类';
+            else if (requirement.type === 'fresh') text = '至少' + requirement.value + '份现做';
+            else if (requirement.type === 'stock') text = '至少' + requirement.value + '份库存';
+            if (requirement.type === 'ingredient' || requirement.type === 'food') {
+                const specified = node('span', undefined, 'pcb-order-specified');
+                specified.append(node('span', requirement.type === 'ingredient'
+                    ? (requirement.mode === 'all' ? '全部含' : '至少一份含')
+                    : '现做一份'), foodIcon(requirement.value), node('span', label(requirement.value)));
+                el.append(node('span', '，'), specified);
+            } else if (text) el.append(node('span', '，' + text));
+        }
+        return el;
     }
     function mount(root) {
         let filter = '全部', search = '', book = [], notice = '', busy = false;
@@ -192,11 +246,6 @@
                 }, 0);
             };
         }
-        function leave() {
-            const r = api.sync().session;
-            if (r && r.phase !== 'closed' && !r.paused) api.pause();
-            Engine.play('Cliff Street');
-        }
         function renderBook(parent) {
             if (!book.length) return;
             const key = book.at(-1), item = foodCatalog()[key];
@@ -231,7 +280,7 @@
             } else pane.append(node('div', '基础原料 · 库存 ' + api.amount(key), 'pcb-recipe-meta'));
             parent.append(pane);
         }
-        function renderKitchen(parent, r) {
+        function renderKitchen(parent, r, onAbandon) {
             const kitchen = node('section', undefined, 'pcb-kitchen');
             kitchen.append(node('h3', '食谱', 'pcb-section-heading'));
             const tabs = node('nav', undefined, 'pcb-row');
@@ -277,9 +326,10 @@
             tray.append(node('h3', '本单托盘', 'pcb-section-heading'), node('div', '现做食物与中间原料 · 结单后清空', 'pcb-section-note'));
             const trayItems = node('div', undefined, 'pcb-tray-items');
             for (const [key, count] of Object.entries(r.tray)) {
-                if (count <= 0) continue;
+                const availableCount = api.available(r, key, 'tray');
+                if (availableCount <= 0) continue;
                 const row = node('div', undefined, 'pcb-tray-item');
-                row.append(foodIcon(key), node('span', label(key)), node('strong', '×' + count));
+                row.append(foodIcon(key), node('span', label(key)), node('strong', '×' + availableCount));
                 if (api.sellable(key)) row.append(textAction('＋', action(() => api.select(key, 'tray')),
                     api.available(r, key, 'tray') < 1 || r.selection.length >= 3, '将一份现做的' + label(key) + '加入提交栏'));
                 else row.append(node('span', '原料', 'pcb-muted'));
@@ -304,7 +354,10 @@
                 } else slot.append(node('span', '待放入食物'));
                 slots.append(slot);
             }
-            selected.append(slots, button('提交订单', action(() => api.submit()), r.selection.length === 0));
+            const submitActions = node('div', undefined, 'pcb-submit-actions');
+            submitActions.append(textAction('放弃订单', onAbandon, false, '放弃当前订单并结算 5 分钟'));
+            submitActions.append(button('提交订单', action(() => api.submit()), r.selection.length === 0));
+            selected.append(slots, submitActions);
             parent.append(selected);
         }
         function render() {
@@ -330,10 +383,30 @@
                 root.append(node('p', '租期剩余 ' + (s.leaseUntil - Math.floor(Time.date.timeStamp / 86400)) + ' 天 · 营业时间 08:00—21:00'));
                 if (!r || r.day !== Math.floor(Time.date.timeStamp / 86400) || r.paused) {
                     root.append(node('p', r?.paused ? '你暂时挂出了休息的牌子。本局订单、托盘与增益均已保留。' : '烤炉和柜台已经准备好了。'),
-                        button(r?.paused ? '继续营业' : '开始今日营业', action(() => api.start())));
+                        signAction('pc-open.png', r?.paused ? '继续营业' : '开始营业', action(() => api.start())));
                 } else {
-                    root.append(node('p', '已完成 ' + r.completed + ' 单 · 今日收入 ' + money(r.income)),
-                        node('p', '增益：' + (r.buffs.map(k => api.BUFFS[k].name).join('、') || '待选择')));
+                    const incomeLine = node('p');
+                    incomeLine.append(node('span', '已完成 ' + r.completed + ' 单 · 今日收入 ' + money(r.income) + ' '));
+                    const closeIcon = node('span', undefined, 'pcb-close-icon');
+                    new Wikifier(closeIcon, '<<icon "pc-close.png">>');
+                    const closeAction = textAction('今日打烊', () => { closing = true; render(); });
+                    incomeLine.append(closeIcon, closeAction);
+                    if (closing) {
+                        root.append(incomeLine, node('p', '结束今日营业？本局增益和临时托盘将清空，今天不能重新开局。'),
+                            button('确认打烊', action(() => { justClosed = true; closing = false; api.close(); })),
+                            button('继续营业', action(() => { closing = false; })));
+                    } else {
+                        root.append(incomeLine);
+                    }
+                    const buffLine = node('p');
+                    buffLine.append(node('span', '增益：', 'pcb-buff-label'));
+                    if (r.buffs.length) {
+                        r.buffs.forEach((key, index) => {
+                            if (index) buffLine.append(node('span', '、'));
+                            buffLine.append(buffIcon(key), node('span', api.BUFFS[key].name, 'pcb-buff-name'));
+                        });
+                    } else buffLine.append(node('span', '待选择'));
+                    root.append(buffLine);
                     if (r.phase === 'buff') {
                         if (waiting) {
                             root.append(node('h3', '选择下一张订单'), node('p', '你站在柜台前，等待客人中…' + '…'.repeat(waitingDots)));
@@ -341,28 +414,19 @@
                             root.append(node('h3', '选择一个营业增益'));
                             for (const key of r.buffOffers || []) {
                                 const value = api.BUFFS[key];
-                                if (value) root.append(button(value.name + ' · ' + value.text, waitingAction(() => api.chooseBuff(key))));
+                                if (value) root.append(buffButton(key, waitingAction(() => api.chooseBuff(key))));
                             }
                         }
                     } else if (r.phase === 'offers') {
                         root.append(node('h3', '选择下一张订单'));
                         if (waiting) root.append(node('p', '你站在柜台前，等待客人中…' + '…'.repeat(waitingDots)));
-                        else r.offers.forEach((o, i) => root.append(button(describe(o), action(() => { api.accept(i); book = []; }))));
+                        else r.offers.forEach((o, i) => root.append(orderOfferButton(o, action(() => { api.accept(i); book = []; }))));
                     } else if (r.phase === 'order') {
-                        root.append(node('h3', describe(r.current))); renderKitchen(root, r);
-                        root.append(button('放弃订单', action(() => api.abandon())));
+                        root.append(node('h3', describe(r.current))); renderKitchen(root, r, action(() => api.abandon()));
                     } else if (r.phase === 'settlement') {
                         if (waiting) root.append(node('h3', '选择下一张订单'), node('p', '你站在柜台前，等待客人中…' + '…'.repeat(waitingDots)));
                         else if (r.last?.abandoned) root.append(node('p', '你放弃了这张订单。顾客离开了，结算耗时 5 分钟。'), button('迎接下一位顾客', waitingAction(() => api.next())));
                         else root.append(node('p', '顾客收下食物。评分 ' + r.last.score + '，本单收入 ' + money(r.last.income) + '。'), button('迎接下一位顾客', waitingAction(() => api.next())));
-                    }
-                    root.append(button('暂停营业，离开', action(leave)));
-                    if (closing) {
-                        root.append(node('p', '结束今日营业？本局增益和临时托盘将清空，今天不能重新开局。'),
-                            button('确认打烊', action(() => { justClosed = true; closing = false; api.close(); })),
-                            button('继续营业', action(() => { closing = false; })));
-                    } else {
-                        root.append(button('今日打烊', () => { closing = true; render(); }));
                     }
                 }
             }
@@ -476,6 +540,23 @@
         labelNode.append(input, node('span', '面包坊外是否替换原版厨房'));
         row.append(labelNode, node('p', '开启后，原版厨房会使用面包坊的食谱界面，只保留详情和制作。', 'small-description'));
         parent.append(row);
+        const cleanupRow = node('div', undefined, 'settingsToggleItem pcb-settings');
+        cleanupRow.append(node('p', '卸载前整理存档', 'bold'));
+        cleanupRow.append(node('p', '卸载本模组前使用：清空本模组开放种植的 13 种水果及 5 种新作物的田地，移除对应种子和本模组新增的三道原料配方，并删除 5 种新作物及 12 种饮料的库存。原版物品库存会保留。操作后请另存存档，再卸载模组。', 'small-description'));
+        const result = node('p', '', 'small-description');
+        if (State.variables.pcBakeryCropsRemoved) {
+            result.textContent = '此存档已经整理。请另存存档，再卸载模组。';
+        } else {
+            const cleanButton = button('卸载前整理存档', () => {
+                if (!window.confirm('将清空这 18 种作物占用的田地和种子、三道新配方的学习状态，并删除 5 种新作物及 12 种饮料的库存。请先备份存档。确定继续吗？')) return;
+                const report = setup.pcBakeryCrops.cleanup();
+                cleanButton.disabled = true;
+                result.textContent = `已整理 ${report.plots} 块田地，移除 ${report.items} 件模组新增物品。请另存存档，再卸载模组。`;
+            });
+            cleanupRow.append(cleanButton);
+        }
+        cleanupRow.append(result);
+        parent.append(cleanupRow);
     }
     function installBakerySettingsTab() {
         if (!document?.querySelector) return;

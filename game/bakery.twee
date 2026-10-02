@@ -5,7 +5,7 @@
 <<pcBakeryUI>>
 
 <br>
-<<link "返回峭壁街" "Cliff Street">>
+<<clifficon>><<link "暂时离开" "Cliff Street">>
     <<set _pcbRun to setup.pcBakery.sync().session>>
     <<if _pcbRun and _pcbRun.phase isnot "closed" and !_pcbRun.paused>>
         <<run setup.pcBakery.pause()>>

@@ -1,10 +1,15 @@
 {
   "name": "PCBakery",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "scriptFileList": [
     "scripts/food-baseline.js",
     "scripts/legacy.js",
     "scripts/core.js",
+    "scripts/regrowth.js",
+    "scripts/crops.js",
+    "scripts/farm.js",
+    "scripts/ingredient-recipes.js",
+    "scripts/drinks.js",
     "scripts/bakery.js",
     "scripts/hunting.js"
   ],
@@ -13,10 +18,40 @@
   ],
   "tweeFileList": [
     "game/bakery.twee",
-    "game/hunting.twee"
+    "game/hunting.twee",
+    "game/farm.twee"
   ],
   "imgFileList": [
-    "img/misc/icon/pc-bakery.png"
+    "img/misc/icon/pc-bakery.png",
+    "img/misc/icon/pc-shovel.png",
+    "img/misc/icon/pc-close.png",
+    "img/misc/icon/pc-open.png",
+    "img/misc/icon/pc-buff-welcome.png",
+    "img/misc/icon/pc-buff-fresh.png",
+    "img/misc/icon/pc-buff-sweet.png",
+    "img/misc/icon/pc-buff-precision.png",
+    "img/misc/icon/pc-buff-pairing.png",
+    "img/misc/icon/pc-buff-bulk.png",
+    "img/misc/icon/pc-buff-variety.png",
+    "img/misc/icon/pc-buff-pantry.png",
+    "img/misc/icon/pc-buff-custom.png",
+    "img/misc/icon/tending/coffee-bean.png",
+    "img/misc/icon/tending/cocoa-bean.png",
+    "img/misc/icon/tending/grape.png",
+    "img/misc/icon/tending/hops.png",
+    "img/misc/icon/tending/tea-leaf.png",
+    "img/misc/icon/tending/pcb-americano.png",
+    "img/misc/icon/tending/pcb-latte.png",
+    "img/misc/icon/tending/pcb-cappuccino.png",
+    "img/misc/icon/tending/pcb-green-apple-americano.png",
+    "img/misc/icon/tending/pcb-plain-tea.png",
+    "img/misc/icon/tending/pcb-hot-cocoa.png",
+    "img/misc/icon/tending/pcb-sea-salt-milk-tea.png",
+    "img/misc/icon/tending/pcb-fruit-tea.png",
+    "img/misc/icon/tending/pcb-beer.png",
+    "img/misc/icon/tending/pcb-apple-cider.png",
+    "img/misc/icon/tending/pcb-sangria.png",
+    "img/misc/icon/tending/pcb-shandy.png"
   ],
   "dependenceInfo": [
     {
@@ -30,6 +65,10 @@
     {
       "modName": "ModLoader DoL ImageLoaderHook",
       "version": "^2.3.0"
+    },
+    {
+      "modName": "TweeReplacer",
+      "version": "^1.7.0"
     }
   ],
   "addonPlugin": [
@@ -38,6 +77,53 @@
       "addonName": "ImageLoaderAddon",
       "modVersion": "^2.3.0",
       "params": []
+    },
+    {
+      "modName": "TweeReplacer",
+      "addonName": "TweeReplacerAddon",
+      "modVersion": "^1.7.0",
+      "params": [
+        {
+          "passage": "Widgets Tending",
+          "findString": "<<tending_harvest _plantbed>><<clear_plot _plantbed>>",
+          "replace": "<<tending_harvest _plantbed>><<if setup.pcBakeryRegrowth.afterHarvest(_plantbed)>><<clear_plot _plantbed>><</if>>"
+        },
+        {
+          "passage": "Widgets variablesStatic",
+          "findString": "<<init_tips>>",
+          "replace": "<<init_tips>><<run setup.pcBakeryCrops.register(); setup.pcBakeryIngredientRecipes.register(); setup.pcBakeryDrinks.register()>>"
+        },
+        {
+          "passage": "Widgets Tending",
+          "findString": "<<for _plantType range $plants_known>>",
+          "replace": "<<for _plantType range setup.pcBakeryCrops.availablePlantKeys(_plantbed.bed)>>"
+        },
+        {
+          "passage": "Widgets Tending",
+          "findString": "<<link \"Plant $_name ($_timeString)\" $passage>><<pass _passTime>><<run plantSeedsInPlot(_plantbed, _plantType)>><</link>>",
+          "replace": "<<link \"Plant $_name ($_timeString)\" $passage>><<if setup.pcBakeryCrops.beginPlanting(_plantbed, _plantType)>><<pass _passTime>><<run plantSeedsInPlot(_plantbed, _plantType)>><</if>><</link>>"
+        },
+        {
+          "passage": "Widgets Tending",
+          "findString": "<<if _plantbed.stage gte 1 and _plantbed.stage lt 5>>",
+          "replace": "<<if _plantbed.stage gte 1 and _plantbed.stage lt 5>>\n\t\t\t\t<<if !pcAreArmsBound(\"both\")>>\n\t\t\t\t\t<<icon \"pc-shovel.png\">><<link \"铲除 (0:10)\" $passage>><<if setup.pcBakeryFarm.canUproot(_plantbed)>><<wearProp \"shovel\">><<pass 10>><<run setup.pcBakeryFarm.uproot(_plantbed)>><<tiredness 1>><<physique 1>><<gtiredness>><</if>><</link>>\n\t\t\t\t<</if>>"
+        },
+        {
+          "passage": "Farm Woodland",
+          "findString": "<<getouticon>><<link [[Leave (0:05)|Farm Work]]>><<pass 5>><</link>>",
+          "replace": "<span class=\"pc-bakery-leave-option\"><<getouticon>><<link [[Leave (0:05)|Farm Work]]>><<pass 5>><</link>></span><br><span data-pc-bakery-woodland-entry><<link [[进入PC面包坊种植区 (0:00)|PCBakery Woodland Plots]]>><</link>></span>"
+        },
+        {
+          "passage": "Farm Upgrades",
+          "findString": "<<farm_upgrades_status>>",
+          "replace": "<<farm_upgrades_status>><<pcBakeryFarmUpgradeOptions>><<pcBakeryFarmNotice>>"
+        },
+        {
+          "passage": "Farm Work",
+          "findString": "<<farm_work_update>>",
+          "replace": "<<farm_work_update>><<pcBakeryFarmNotice>>"
+        }
+      ]
     }
   ]
 }
