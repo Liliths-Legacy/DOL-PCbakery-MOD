@@ -1,0 +1,15 @@
+:: PCBakery Market Seed [widget]
+<<widget "pcBakeryMarketSeed">>
+<<set _pcSeedKey to _args[0]>><<set _pcSeedName to setup.pcBakeryCrops.seedName(_pcSeedKey)>>
+<<if setup.pcBakeryCrops.canBuySeed(_pcSeedKey)>>
+    <<if $money gte 2000>>
+    <<capture _pcSeedKey>>
+        <<foodstufficon _pcSeedKey>><<link `"购买" + _pcSeedName + "种子 (£20)"` "Connudatus Street">><<if $money gte 2000 and setup.pcBakeryCrops.canBuySeed(_pcSeedKey)>><<money -2000>><<run setup.pcBakeryCrops.grantSeed(_pcSeedKey)>><</if>><</link>><br>
+    <</capture>>
+    <<else>>
+        <span class="blue">购买<<print _pcSeedName>>种子需要 £20。</span><br>
+    <</if>>
+<<else>>
+    <span class="blue">你已经拥有<<print _pcSeedName>>种子。</span><br>
+<</if>>
+<</widget>>

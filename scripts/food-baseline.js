@@ -1,21 +1,48 @@
-/* Standard food definitions extracted from the SHA256-pinned DoL 0.5.11.9.
+/* Standard food definitions extracted from the SHA256-pinned DoL 0.5.12.13.
    Used only when no runtime catalog is available; never supplies inventory or unlocks. */
 setup.pcBakeryFoodBaseline = {
   "apple": {
+    "index": 8,
     "name": "apple",
-    "singular": "apple",
-    "plural": "apples",
+    "singular": "苹果",
+    "plural": "苹果",
+    "icon": "apple.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 28,
+      "regrow_days": 7,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
     "shop": {
       "sell_price": 50
     },
-    "icon": "apple.png"
+    "is_fishing_bait": true
   },
   "apple_crumble": {
+    "index": 114,
     "name": "apple crumble",
-    "singular": "serving of apple crumble",
-    "plural": "servings of apple crumble",
+    "singular": "苹果酥",
+    "plural": "苹果酥",
+    "icon": "apple-crumble.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 700
+    },
     "recipe": {
       "recipe_name": "apple crumble",
       "difficulty": 2,
@@ -29,23 +56,35 @@ setup.pcBakeryFoodBaseline = {
         "oats",
         "cream"
       ],
+      "ingredients_cn": [
+        "苹果",
+        "糖",
+        "面粉",
+        "黄油",
+        "燕麦",
+        "奶油"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 700
-    },
-    "icon": "apple-crumble.png"
+    }
   },
   "apple_strudel": {
+    "index": 94,
     "name": "apple strudel",
-    "singular": "apple strudel",
-    "plural": "apple strudels",
+    "singular": "苹果卷",
+    "plural": "苹果卷",
+    "icon": "apple-strudel.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1200
+    },
     "recipe": {
       "recipe_name": "apple strudels",
       "difficulty": 2,
@@ -58,6 +97,13 @@ setup.pcBakeryFoodBaseline = {
         "honey",
         "butter"
       ],
+      "ingredients_cn": [
+        "酥皮",
+        "苹果",
+        "糖",
+        "蜂蜜",
+        "黄油"
+      ],
       "tags": []
     },
     "food": {
@@ -65,17 +111,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1200
-    },
-    "icon": "apple-strudel.png"
+    }
   },
   "arancini": {
+    "index": 136,
     "name": "arancini",
-    "singular": "arancini ball",
-    "plural": "arancini balls",
+    "singular": "意式炸饭球",
+    "plural": "意式炸饭球",
+    "icon": "arancini.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1400
+    },
     "recipe": {
       "recipe_name": "arancini",
       "difficulty": 3,
@@ -94,46 +144,106 @@ setup.pcBakeryFoodBaseline = {
         "chicken_egg",
         "truffle"
       ],
+      "ingredients_cn": [
+        "植物油",
+        "黄油",
+        "洋葱",
+        "米",
+        "大蒜",
+        "白葡萄酒",
+        "芝士",
+        "柠檬",
+        "面粉",
+        "鸡蛋",
+        "松露"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 700
-    },
-    "icon": "arancini.png"
+    }
   },
   "baby_bottle_of_breast_milk": {
+    "index": 37,
     "name": "baby bottle of breast milk",
-    "singular": "baby bottle of breast milk",
-    "plural": "baby bottles of breast milk",
+    "singular": "小瓶装母乳",
+    "plural": "小瓶装母乳",
+    "icon": "babybottle.png",
     "category": "produce",
+    "category_cn": "农产品",
+    "kitchen_item_type_icon": "recipe-produce.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": false,
+      "tags": []
+    },
     "shop": {
       "sell_price": 200
-    },
-    "icon": "babybottle.png"
+    }
   },
   "bacon": {
+    "index": 59,
     "name": "bacon",
-    "singular": "rasher of bacon",
-    "plural": "rashers of bacon",
+    "singular": "培根薄片",
+    "plural": "培根薄片",
+    "icon": "bacon.png",
     "category": "meat",
+    "category_cn": "肉食",
+    "kitchen_item_type_icon": "recipe-meat.png",
+    "prop_folder": "ingredient",
     "shop": {
       "sell_price": 200,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "bacon.png"
+    "is_fishing_bait": true
+  },
+  "bait_worm": {
+    "index": 165,
+    "name": "bait worm",
+    "singular": "饵虫",
+    "plural": "饵虫",
+    "icon": "bait-worm.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "is_fishing_bait": true,
+    "shop": {
+      "sell_price": 0
+    }
+  },
+  "baitfish": {
+    "index": 164,
+    "name": "baitfish",
+    "singular": "饵鱼",
+    "plural": "饵鱼",
+    "icon": "baitfish.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "is_fishing_bait": true,
+    "shop": {
+      "sell_price": 0
+    }
   },
   "bakewell_tart": {
+    "index": 115,
     "name": "Bakewell tart",
-    "singular": "Bakewell tart",
-    "plural": "Bakewell tarts",
+    "singular": "杏仁果酱挞",
+    "plural": "杏仁果酱挞",
+    "icon": "bakewell-tart.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1200
+    },
     "recipe": {
       "recipe_name": "Bakewell tarts",
       "difficulty": 3,
@@ -144,6 +254,11 @@ setup.pcBakeryFoodBaseline = {
         "cream",
         "cherry"
       ],
+      "ingredients_cn": [
+        "黄油酥饼",
+        "奶油",
+        "樱桃"
+      ],
       "tags": []
     },
     "food": {
@@ -151,30 +266,52 @@ setup.pcBakeryFoodBaseline = {
       "tags": [
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1200
-    },
-    "icon": "bakewell-tart.png"
+    }
   },
   "banana": {
+    "index": 10,
     "name": "banana",
-    "singular": "banana",
-    "plural": "bananas",
+    "singular": "香蕉",
+    "plural": "香蕉",
+    "icon": "banana.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 32,
+      "regrow_days": 7,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
     "shop": {
       "sell_price": 100,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "banana.png"
+    "is_fishing_bait": true
   },
   "banana_bread": {
+    "index": 128,
     "name": "banana bread",
-    "singular": "loaf of banana bread",
-    "plural": "loaves of banana bread",
+    "singular": "香蕉面包",
+    "plural": "香蕉面包",
+    "icon": "banana-bread.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 500
+    },
     "recipe": {
       "recipe_name": "banana bread",
       "difficulty": 2,
@@ -187,6 +324,13 @@ setup.pcBakeryFoodBaseline = {
         "flour",
         "banana"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "糖",
+        "鸡蛋",
+        "面粉",
+        "香蕉"
+      ],
       "tags": []
     },
     "food": {
@@ -195,16 +339,21 @@ setup.pcBakeryFoodBaseline = {
         "sweet"
       ]
     },
-    "shop": {
-      "sell_price": 500
-    },
-    "icon": "banana-bread.png"
+    "is_fishing_bait": true
   },
   "bangers_and_mash": {
+    "index": 121,
     "name": "bangers and mash",
-    "singular": "serving of bangers and mash",
-    "plural": "servings of bangers and mash",
+    "singular": "土豆泥和香肠",
+    "plural": "土豆泥和香肠",
+    "icon": "bangers-and-mash.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1000
+    },
     "recipe": {
       "recipe_name": "bangers and mash",
       "difficulty": 2,
@@ -217,34 +366,68 @@ setup.pcBakeryFoodBaseline = {
         "bottle_of_milk",
         "potato"
       ],
+      "ingredients_cn": [
+        "植物油",
+        "香肠",
+        "黄油",
+        "牛奶",
+        "土豆"
+      ],
       "tags": []
     },
     "food": {
       "tags": []
-    },
+    }
+  },
+  "bass": {
+    "index": 156,
+    "name": "bass",
+    "singular": "海鲈",
+    "plural": "海鲈",
+    "icon": "bass.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
     "shop": {
-      "sell_price": 1200
-    },
-    "icon": "bangers-and-mash.png"
+      "sell_price": 800
+    }
   },
   "beef": {
+    "index": 139,
     "name": "beef",
-    "singular": "serving of beef",
-    "plural": "servings of beef",
+    "singular": "牛肉",
+    "plural": "牛肉",
+    "icon": "beef.png",
     "category": "meat",
+    "category_cn": "肉食",
+    "kitchen_item_type_icon": "recipe-meat.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 1000,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "beef.png"
+    "is_fishing_bait": true
   },
   "beef_wellington": {
+    "index": 75,
     "name": "beef wellington",
-    "singular": "serving of beef wellington",
-    "plural": "servings of beef wellington",
+    "singular": "惠灵顿牛肉",
+    "plural": "惠灵顿牛肉",
+    "icon": "beef-wellington.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1800
+    },
     "recipe": {
       "recipe_name": "beef wellington",
       "difficulty": 4,
@@ -258,21 +441,33 @@ setup.pcBakeryFoodBaseline = {
         "salt",
         "mushroom"
       ],
+      "ingredients_cn": [
+        "牛肉",
+        "洋葱",
+        "油酥面皮",
+        "鸡蛋",
+        "盐",
+        "蘑菇"
+      ],
       "tags": []
     },
     "food": {
       "tags": []
-    },
-    "shop": {
-      "sell_price": 1800
-    },
-    "icon": "beef-wellington.png"
+    }
   },
   "belgian_bun": {
+    "index": 109,
     "name": "belgian bun",
-    "singular": "Belgian bun",
-    "plural": "Belgian buns",
+    "singular": "比利时小圆面包",
+    "plural": "比利时小圆面包",
+    "icon": "belgian-bun.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 600
+    },
     "recipe": {
       "recipe_name": "Belgian buns",
       "difficulty": 2,
@@ -286,91 +481,170 @@ setup.pcBakeryFoodBaseline = {
         "lemon",
         "cherry"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "糖",
+        "牛奶",
+        "鸡蛋",
+        "柠檬",
+        "樱桃"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1000
-    },
-    "icon": "belgian-bun.png"
+    }
   },
   "bird_egg": {
+    "index": 36,
     "name": "bird egg",
-    "singular": "bird egg",
-    "plural": "bird eggs",
+    "singular": "鸟蛋",
+    "plural": "鸟蛋",
+    "icon": "bird-egg.png",
     "category": "produce",
+    "category_cn": "农产品",
+    "kitchen_item_type_icon": "recipe-produce.png",
+    "prop_folder": "tending",
     "shop": {
       "sell_price": 200
-    },
-    "icon": "bird-egg.png"
+    }
   },
   "blackberry": {
+    "index": 34,
     "name": "blackberry",
-    "singular": "blackberry",
-    "plural": "blackberries",
+    "singular": "黑莓",
+    "plural": "黑莓",
+    "icon": "blackberry.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_shrub",
+      "growth_days": 16,
+      "regrow_days": 3,
+      "yield_multiplier": 4,
+      "has_seeds": true,
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
     "shop": {
       "sell_price": 7,
       "stall_size": "small"
     },
-    "icon": "blackberry.png"
+    "is_fishing_bait": true
   },
   "blood_lemon": {
+    "index": 12,
     "name": "blood lemon",
-    "singular": "blood lemon",
-    "plural": "blood lemons",
+    "singular": "血柠",
+    "plural": "血柠",
+    "icon": "blood-lemon.gif",
     "category": "fruit",
-    "food": {
-      "tags": [
-        "aphrodisiac"
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 30,
+      "regrow_days": 8,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "summer",
+        "autumn"
       ]
     },
     "shop": {
       "sell_price": 400
     },
-    "icon": "blood-lemon.gif"
+    "food": {
+      "tags": [
+        "aphrodisiac"
+      ]
+    },
+    "is_fishing_bait": true
   },
   "bottle_of_breast_milk": {
+    "index": 28,
     "name": "bottle of breast milk",
-    "singular": "bottle of breast milk",
-    "plural": "bottles of breast milk",
+    "singular": "瓶装母乳",
+    "plural": "瓶装母乳",
+    "icon": "breastmilk.png",
     "category": "produce",
+    "category_cn": "农产品",
+    "kitchen_item_type_icon": "recipe-produce.png",
+    "prop_folder": "tending",
     "shop": {
       "sell_price": 3000,
       "stall_size": "large"
-    },
-    "icon": "breastmilk.png"
+    }
   },
   "bottle_of_milk": {
+    "index": 26,
     "name": "bottle of milk",
-    "singular": "bottle of milk",
-    "plural": "bottles of milk",
+    "singular": "瓶装牛奶",
+    "plural": "瓶装牛奶",
+    "icon": "milk.png",
     "category": "produce",
+    "category_cn": "农产品",
+    "kitchen_item_type_icon": "recipe-produce.png",
+    "prop_folder": "tending",
+    "ingredient_alternatives": {
+      "normal": [],
+      "lewd": [
+        "baby_bottle_of_breast_milk"
+      ]
+    },
+    "tending": {
+      "affected_by_tending_skill": false,
+      "tags": []
+    },
+    "shop": {
+      "sell_price": 100
+    }
+  },
+  "bottle_of_semen": {
+    "index": 29,
+    "name": "bottle of semen",
+    "singular": "瓶装精液",
+    "plural": "瓶装精液",
+    "icon": "semenbottle.png",
+    "category": "produce",
+    "category_cn": "农产品",
+    "kitchen_item_type_icon": "recipe-produce.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": false,
+      "tags": []
+    },
+    "shop": {
+      "sell_price": 3000,
+      "stall_size": "large"
+    }
+  },
+  "bread": {
+    "index": 40,
+    "name": "bread",
+    "singular": "面包",
+    "plural": "面包",
+    "icon": "bread.png",
+    "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
     "shop": {
       "sell_price": 100
     },
-    "icon": "milk.png"
-  },
-  "bottle_of_semen": {
-    "name": "bottle of semen",
-    "singular": "bottle of semen",
-    "plural": "bottles of semen",
-    "category": "produce",
-    "shop": {
-      "sell_price": 3000,
-      "stall_size": "large"
-    },
-    "icon": "semenbottle.png"
-  },
-  "bread": {
-    "name": "bread",
-    "singular": "piece of bread",
-    "plural": "pieces of bread",
-    "category": "dish",
+    "is_fishing_bait": true,
     "recipe": {
       "recipe_name": "bread",
       "difficulty": 1,
@@ -381,33 +655,59 @@ setup.pcBakeryFoodBaseline = {
         "salt",
         "vegetable_oil"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "盐",
+        "植物油"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegan"
       ]
-    },
-    "shop": {
-      "sell_price": 100
-    },
-    "icon": "bread.png"
+    }
   },
   "broccoli": {
+    "index": 32,
     "name": "broccoli",
-    "singular": "broccoli",
-    "plural": "broccoli",
+    "singular": "西兰花",
+    "plural": "西兰花",
+    "icon": "broccoli.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 10,
+      "yield_multiplier": 3,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 100
-    },
-    "icon": "broccoli.png"
+    }
   },
   "brownie": {
+    "index": 101,
     "name": "brownie",
-    "singular": "brownie",
-    "plural": "brownies",
+    "singular": "布朗尼",
+    "plural": "布朗尼",
+    "icon": "brownie.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 500
+    },
     "recipe": {
       "recipe_name": "brownies",
       "difficulty": 2,
@@ -420,6 +720,13 @@ setup.pcBakeryFoodBaseline = {
         "chicken_egg",
         "salt"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "面粉",
+        "巧克力",
+        "鸡蛋",
+        "盐"
+      ],
       "tags": []
     },
     "food": {
@@ -427,17 +734,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 300
-    },
-    "icon": "brownie.png"
+    }
   },
   "butter": {
+    "index": 55,
     "name": "butter",
-    "singular": "spoonful of butter",
-    "plural": "spoonfuls of butter",
+    "singular": "黄油",
+    "plural": "黄油",
+    "icon": "butter.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 10
+    },
     "recipe": {
       "recipe_name": "butter",
       "difficulty": 1,
@@ -446,28 +757,52 @@ setup.pcBakeryFoodBaseline = {
       "ingredients": [
         "bottle_of_milk"
       ],
+      "ingredients_cn": [
+        "牛奶"
+      ],
       "tags": []
-    },
-    "shop": {
-      "sell_price": 10
-    },
-    "icon": "butter.png"
+    }
   },
   "cabbage": {
+    "index": 30,
     "name": "cabbage",
-    "singular": "cabbage",
-    "plural": "cabbages",
+    "singular": "卷心菜",
+    "plural": "卷心菜",
+    "icon": "cabbage.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 8,
+      "yield_multiplier": 3,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "winter"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 90
-    },
-    "icon": "cabbage.png"
+    }
   },
   "carbonara": {
+    "index": 85,
     "name": "carbonara",
-    "singular": "serving of carbonara",
-    "plural": "servings of carbonara",
+    "singular": "奶油培根意大利面",
+    "plural": "奶油培根意大利面",
+    "icon": "carbonara.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1200
+    },
     "recipe": {
       "recipe_name": "carbonara",
       "difficulty": 3,
@@ -480,31 +815,58 @@ setup.pcBakeryFoodBaseline = {
         "bottle_of_milk",
         "pork"
       ],
+      "ingredients_cn": [
+        "意大利面",
+        "芝士",
+        "面粉",
+        "牛奶",
+        "猪肉"
+      ],
       "tags": []
     },
     "food": {
       "tags": []
-    },
-    "shop": {
-      "sell_price": 1000
-    },
-    "icon": "carbonara.png"
+    }
   },
   "carnation": {
+    "index": 35,
     "name": "carnation",
-    "singular": "carnation",
-    "plural": "carnations",
+    "singular": "康乃馨",
+    "plural": "康乃馨",
+    "icon": "carnation.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 3,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 20
+    },
     "shop": {
       "sell_price": 200
-    },
-    "icon": "carnation.png"
+    }
   },
   "carrot_cake": {
+    "index": 102,
     "name": "carrot cake",
-    "singular": "carrot cake",
-    "plural": "carrot cakes",
+    "singular": "胡萝卜蛋糕",
+    "plural": "胡萝卜蛋糕",
+    "icon": "carrot-cake.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 800
+    },
     "recipe": {
       "recipe_name": "carrot cake",
       "difficulty": 2,
@@ -520,6 +882,16 @@ setup.pcBakeryFoodBaseline = {
         "cream",
         "butter"
       ],
+      "ingredients_cn": [
+        "野生胡萝卜",
+        "糖",
+        "鸡蛋",
+        "植物油",
+        "面粉",
+        "柠檬",
+        "奶油",
+        "黄油"
+      ],
       "tags": []
     },
     "food": {
@@ -528,27 +900,50 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1400
-    },
-    "icon": "carrot-cake.png"
+    }
   },
   "cauliflower": {
+    "index": 141,
     "name": "cauliflower",
-    "singular": "cauliflower",
-    "plural": "cauliflowers",
+    "singular": "花椰菜",
+    "plural": "花椰菜",
+    "icon": "cauliflower.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 30,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn",
+        "winter"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 400
-    },
-    "icon": "cauliflower.png"
+    }
   },
   "cauliflower_cheese": {
+    "index": 49,
     "name": "cauliflower cheese",
-    "singular": "serving of cauliflower cheese",
-    "plural": "servings of cauliflower cheese",
+    "singular": "奶酪花椰菜",
+    "plural": "奶酪花椰菜",
+    "icon": "cauliflower-cheese.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1000
+    },
     "recipe": {
       "recipe_name": "cauliflower cheese",
       "difficulty": 2,
@@ -560,23 +955,33 @@ setup.pcBakeryFoodBaseline = {
         "garlic_bulb",
         "bottle_of_milk"
       ],
+      "ingredients_cn": [
+        "花椰菜",
+        "芝士",
+        "大蒜",
+        "牛奶"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 1000
-    },
-    "icon": "cauliflower-cheese.png"
+    }
   },
   "cheese": {
+    "index": 46,
     "name": "cheese",
-    "singular": "piece of cheese",
-    "plural": "pieces of cheese",
+    "singular": "芝士",
+    "plural": "芝士",
+    "icon": "cheese.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 500
+    },
     "recipe": {
       "recipe_name": "cheese",
       "difficulty": 1,
@@ -585,6 +990,9 @@ setup.pcBakeryFoodBaseline = {
       "ingredients": [
         "bottle_of_milk"
       ],
+      "ingredients_cn": [
+        "牛奶"
+      ],
       "tags": []
     },
     "food": {
@@ -592,17 +1000,21 @@ setup.pcBakeryFoodBaseline = {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 500
-    },
-    "icon": "cheese.png"
+    }
   },
   "cheese_and_crackers": {
+    "index": 120,
     "name": "cheese and crackers",
-    "singular": "serving of cheese and crackers",
-    "plural": "servings of cheese and crackers",
+    "singular": "芝士与饼干",
+    "plural": "芝士与饼干",
+    "icon": "cheese-and-crackers.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 800
+    },
     "recipe": {
       "recipe_name": "cheese and crackers",
       "difficulty": 1,
@@ -615,23 +1027,34 @@ setup.pcBakeryFoodBaseline = {
         "vegetable_oil",
         "cheese"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "盐",
+        "糖",
+        "植物油",
+        "芝士"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 800
-    },
-    "icon": "cheese-and-crackers.png"
+    }
   },
   "cheese_topped_trout": {
+    "index": 80,
     "name": "cheese topped trout",
-    "singular": "serving of cheese topped trout",
-    "plural": "servings of cheese topped trout",
+    "singular": "芝士鳟鱼",
+    "plural": "芝士鳟鱼",
+    "icon": "cheese-topped-trout.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1600
+    },
     "recipe": {
       "recipe_name": "cheese topped trout",
       "difficulty": 3,
@@ -645,28 +1068,40 @@ setup.pcBakeryFoodBaseline = {
         "butter",
         "lemon"
       ],
+      "ingredients_cn": [
+        "鳟鱼",
+        "面包",
+        "芝士",
+        "植物油",
+        "黄油",
+        "柠檬"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "seafood"
       ]
-    },
-    "shop": {
-      "sell_price": 1600
-    },
-    "icon": "cheese-topped-trout.png"
+    }
   },
   "cheeseburger": {
+    "index": 78,
     "name": "cheeseburger",
-    "singular": "cheeseburger",
-    "plural": "cheeseburgers",
+    "singular": "芝士汉堡",
+    "plural": "芝士汉堡",
+    "icon": "cheeseburger.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 800
+    },
     "recipe": {
       "recipe_name": "cheeseburgers",
-      "difficulty": 1,
+      "difficulty": 2,
       "cook_minutes": 15,
-      "servings": 2,
+      "servings": 1,
       "ingredients": [
         "beef",
         "bread",
@@ -674,21 +1109,32 @@ setup.pcBakeryFoodBaseline = {
         "tomato",
         "cheese"
       ],
+      "ingredients_cn": [
+        "牛肉",
+        "面包",
+        "洋葱",
+        "番茄",
+        "芝士"
+      ],
       "tags": []
     },
     "food": {
       "tags": []
-    },
-    "shop": {
-      "sell_price": 800
-    },
-    "icon": "cheeseburger.png"
+    }
   },
   "chelsea_bun": {
+    "index": 53,
     "name": "chelsea bun",
-    "singular": "Chelsea bun",
-    "plural": "Chelsea buns",
+    "singular": "切尔西小圆面包",
+    "plural": "切尔西小圆面包",
+    "icon": "chelsea-bun.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 200
+    },
     "recipe": {
       "recipe_name": "Chelsea buns",
       "difficulty": 2,
@@ -702,6 +1148,14 @@ setup.pcBakeryFoodBaseline = {
         "bottle_of_milk",
         "honey"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "盐",
+        "黄油",
+        "糖",
+        "牛奶",
+        "蜂蜜"
+      ],
       "tags": []
     },
     "food": {
@@ -709,53 +1163,94 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 200
-    },
-    "icon": "chelsea-bun.png"
+    }
   },
   "cherry": {
+    "index": 108,
     "name": "cherry",
-    "singular": "cherry",
-    "plural": "cherries",
+    "singular": "樱桃",
+    "plural": "樱桃",
+    "icon": "cherry.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 25,
+      "regrow_days": 6,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer"
+      ]
+    },
     "shop": {
       "sell_price": 20,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "cherry.png"
+    "is_fishing_bait": true
   },
   "chicken": {
+    "index": 69,
     "name": "chicken",
-    "singular": "serving of chicken",
-    "plural": "servings of chicken",
+    "singular": "鸡肉",
+    "plural": "鸡肉",
+    "icon": "chicken.png",
     "category": "meat",
+    "category_cn": "肉食",
+    "kitchen_item_type_icon": "recipe-meat.png",
+    "prop_folder": "ingredient",
     "shop": {
       "sell_price": 300,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "chicken.png"
+    "is_fishing_bait": true
   },
   "chicken_egg": {
+    "index": 27,
     "name": "chicken egg",
-    "singular": "chicken egg",
-    "plural": "chicken eggs",
+    "singular": "鸡蛋",
+    "plural": "鸡蛋",
+    "icon": "egg.png",
     "category": "produce",
+    "category_cn": "农产品",
+    "kitchen_item_type_icon": "recipe-produce.png",
+    "prop_folder": "tending",
+    "ingredient_alternatives": {
+      "normal": [
+        "bird_egg"
+      ],
+      "lewd": []
+    },
+    "tending": {
+      "affected_by_tending_skill": false,
+      "tags": []
+    },
     "shop": {
       "sell_price": 40
-    },
-    "icon": "egg.png"
+    }
   },
   "chicken_tikka_masala": {
+    "index": 86,
     "name": "chicken tikka masala",
-    "singular": "serving of chicken tikka masala",
-    "plural": "servings of chicken tikka masala",
+    "singular": "鸡肉提卡",
+    "plural": "鸡肉提卡",
+    "icon": "chicken-tikka-masala.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1700
+    },
     "recipe": {
       "recipe_name": "chicken tikka masala",
       "difficulty": 3,
@@ -772,23 +1267,38 @@ setup.pcBakeryFoodBaseline = {
         "naan_bread",
         "rice"
       ],
+      "ingredients_cn": [
+        "鸡肉",
+        "植物油",
+        "洋葱",
+        "大蒜",
+        "番茄",
+        "黄油",
+        "柠檬",
+        "馕饼",
+        "米"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "spicy"
       ]
-    },
-    "shop": {
-      "sell_price": 1700
-    },
-    "icon": "chicken-tikka-masala.png"
+    }
   },
   "chicken_vindaloo": {
+    "index": 106,
     "name": "chicken vindaloo",
-    "singular": "serving of chicken vindaloo",
-    "plural": "servings of chicken vindaloo",
+    "singular": "温达卢辣鸡肉咖喱",
+    "plural": "温达卢辣鸡肉咖喱",
+    "icon": "chicken-vindaloo.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1800
+    },
     "recipe": {
       "recipe_name": "chicken vindaloo",
       "difficulty": 3,
@@ -805,23 +1315,38 @@ setup.pcBakeryFoodBaseline = {
         "naan_bread",
         "rice"
       ],
+      "ingredients_cn": [
+        "鸡肉",
+        "植物油",
+        "辣椒",
+        "洋葱",
+        "番茄",
+        "柠檬",
+        "大蒜",
+        "馕饼",
+        "米"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "spicy"
       ]
-    },
-    "shop": {
-      "sell_price": 1800
-    },
-    "icon": "chicken-vindaloo.png"
+    }
   },
   "chilli_con_carne": {
+    "index": 87,
     "name": "chilli con carne",
-    "singular": "serving of chilli con carne",
-    "plural": "servings of chilli con carne",
+    "singular": "墨西哥辣肉酱",
+    "plural": "墨西哥辣肉酱",
+    "icon": "chilli-con-carne.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1300
+    },
     "recipe": {
       "recipe_name": "chilli con carne",
       "difficulty": 3,
@@ -835,33 +1360,62 @@ setup.pcBakeryFoodBaseline = {
         "tomato",
         "chilli_pepper"
       ],
+      "ingredients_cn": [
+        "牛肉",
+        "植物油",
+        "洋葱",
+        "大蒜",
+        "番茄",
+        "辣椒"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "spicy"
       ]
-    },
-    "shop": {
-      "sell_price": 1300
-    },
-    "icon": "chilli-con-carne.png"
+    }
   },
   "chilli_pepper": {
+    "index": 66,
     "name": "chilli pepper",
-    "singular": "chilli pepper",
-    "plural": "chilli peppers",
+    "singular": "辣椒",
+    "plural": "辣椒",
+    "icon": "chilli-pepper.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "planting_bed": "earth",
+      "growth_days": 22,
+      "yield_multiplier": 6,
+      "has_seeds": true,
+      "seasons": [
+        "summer",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 80
     },
-    "icon": "chilli-pepper.png"
+    "is_fishing_bait": true
   },
   "chips": {
+    "index": 79,
     "name": "chips",
-    "singular": "packet of chips",
-    "plural": "packets of chips",
+    "singular": "薯条",
+    "plural": "薯条",
+    "icon": "chips.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 400
+    },
     "recipe": {
       "recipe_name": "chips",
       "difficulty": 2,
@@ -872,23 +1426,32 @@ setup.pcBakeryFoodBaseline = {
         "vegetable_oil",
         "salt"
       ],
+      "ingredients_cn": [
+        "土豆",
+        "植物油",
+        "盐"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegan"
       ]
-    },
-    "shop": {
-      "sell_price": 400
-    },
-    "icon": "chips.png"
+    }
   },
   "choc_chip_cookie": {
+    "index": 91,
     "name": "choc chip cookie",
-    "singular": "chocolate chip cookie",
-    "plural": "chocolate chip cookies",
+    "singular": "巧克力曲奇",
+    "plural": "巧克力曲奇",
+    "icon": "choc-chip-cookie.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 100
+    },
     "recipe": {
       "recipe_name": "chocolate chip cookies",
       "difficulty": 1,
@@ -901,6 +1464,13 @@ setup.pcBakeryFoodBaseline = {
         "chicken_egg",
         "chocolate"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "面粉",
+        "糖",
+        "鸡蛋",
+        "巧克力"
+      ],
       "tags": []
     },
     "food": {
@@ -909,17 +1479,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 100
-    },
-    "icon": "choc-chip-cookie.png"
+    }
   },
   "chocolate": {
+    "index": 93,
     "name": "chocolate",
-    "singular": "slab of chocolate",
-    "plural": "slabs of chocolate",
+    "singular": "巧克力",
+    "plural": "巧克力",
+    "icon": "chocolate.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 700
+    },
     "recipe": {
       "recipe_name": "chocolate",
       "difficulty": 1,
@@ -930,6 +1504,11 @@ setup.pcBakeryFoodBaseline = {
         "bottle_of_milk",
         "cocoa_powder"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "牛奶",
+        "可可粉"
+      ],
       "tags": []
     },
     "food": {
@@ -937,30 +1516,56 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
+    }
+  },
+  "chub": {
+    "index": 159,
+    "name": "chub",
+    "singular": "雅罗鱼",
+    "plural": "雅罗鱼",
+    "icon": "chub.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
     "shop": {
-      "sell_price": 700
-    },
-    "icon": "chocolate.png"
+      "sell_price": 150
+    }
   },
   "clam": {
+    "index": 118,
     "name": "clam",
-    "singular": "clam",
-    "plural": "clams",
+    "singular": "蛤蜊",
+    "plural": "蛤蜊",
+    "icon": "clam.png",
     "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 400,
       "available_in": [
         "supermarket"
       ]
-    },
-    "icon": "clam.png"
+    }
   },
   "clam_chowder": {
+    "index": 119,
     "name": "clam chowder",
-    "singular": "serving of clam chowder",
-    "plural": "servings of clam chowder",
+    "singular": "蛤蜊浓汤",
+    "plural": "蛤蜊浓汤",
+    "icon": "clam-chowder.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1300
+    },
     "recipe": {
       "recipe_name": "clam chowder",
       "difficulty": 3,
@@ -976,60 +1581,94 @@ setup.pcBakeryFoodBaseline = {
         "cream",
         "potato"
       ],
+      "ingredients_cn": [
+        "蛤蜊",
+        "黄油",
+        "培根",
+        "洋葱",
+        "面粉",
+        "牛奶",
+        "奶油",
+        "土豆"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "seafood"
       ]
-    },
-    "shop": {
-      "sell_price": 1300
-    },
-    "icon": "clam-chowder.png"
+    }
   },
   "cocoa_powder": {
+    "index": 92,
     "name": "cocoa powder",
-    "singular": "cup of cocoa powder",
-    "plural": "cups of cocoa powder",
+    "singular": "杯装可可粉",
+    "plural": "杯装可可粉",
+    "icon": "cocoa-powder.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
     "shop": {
       "sell_price": 200,
       "available_in": [
         "supermarket"
       ],
       "bought_in_bulk": 5
-    },
-    "icon": "cocoa-powder.png"
+    }
   },
   "cod": {
+    "index": 116,
     "name": "cod",
-    "singular": "cod",
-    "plural": "cod",
+    "singular": "鳕鱼",
+    "plural": "鳕鱼",
+    "icon": "cod.png",
     "category": "seafood",
-    "shop": {
-      "sell_price": 600,
-      "available_in": [
-        "supermarket"
-      ]
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
     },
-    "icon": "cod.png"
+    "shop": {
+      "sell_price": 700,
+      "available_in": []
+    }
   },
   "cream": {
+    "index": 52,
     "name": "cream",
-    "singular": "spoonful of cream",
-    "plural": "spoonfuls of cream",
+    "singular": "奶油",
+    "plural": "奶油",
+    "icon": "cream.png",
     "category": "produce",
+    "category_cn": "农产品",
+    "kitchen_item_type_icon": "recipe-produce.png",
+    "prop_folder": "tending",
+    "ingredient_alternatives": {
+      "normal": [],
+      "lewd": [
+        "bottle_of_semen"
+      ]
+    },
     "shop": {
       "sell_price": 100
-    },
-    "icon": "cream.png"
+    }
   },
   "creme_brulee": {
+    "index": 103,
     "name": "crème brûlée",
-    "singular": "pot of crème brûlée",
-    "plural": "pots of crème brûlée",
+    "singular": "焦糖布丁罐",
+    "plural": "烤布蕾",
+    "icon": "creme-brulee.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 600
+    },
     "recipe": {
       "recipe_name": "crème brûlée",
       "difficulty": 2,
@@ -1041,6 +1680,12 @@ setup.pcBakeryFoodBaseline = {
         "sugar",
         "chicken_egg"
       ],
+      "ingredients_cn": [
+        "牛奶",
+        "奶油",
+        "糖",
+        "鸡蛋"
+      ],
       "tags": []
     },
     "food": {
@@ -1048,17 +1693,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 600
-    },
-    "icon": "creme-brulee.png"
+    }
   },
   "crumpet": {
+    "index": 125,
     "name": "crumpet",
-    "singular": "crumpet",
-    "plural": "crumpets",
+    "singular": "松脆饼",
+    "plural": "松脆饼",
+    "icon": "crumpet.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 100
+    },
     "recipe": {
       "recipe_name": "crumpets",
       "difficulty": 2,
@@ -1070,46 +1719,106 @@ setup.pcBakeryFoodBaseline = {
         "salt",
         "sugar"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "黄油",
+        "盐",
+        "糖"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 100
-    },
-    "icon": "crumpet.png"
+    }
   },
   "daisy": {
+    "index": 3,
     "name": "daisy",
-    "singular": "daisy",
-    "plural": "daisies",
+    "singular": "雏菊",
+    "plural": "雏菊",
+    "icon": "daisy.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 7,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 1
+    },
     "shop": {
       "sell_price": 150
-    },
-    "icon": "daisy.png"
+    }
   },
   "date": {
+    "index": 104,
     "name": "date",
-    "singular": "date",
-    "plural": "dates",
+    "singular": "椰枣",
+    "plural": "椰枣",
+    "icon": "date.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 40,
+      "regrow_days": 8,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "summer",
+        "autumn"
+      ]
+    },
     "shop": {
       "sell_price": 50,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "date.png"
+    "is_fishing_bait": true
+  },
+  "eel": {
+    "index": 162,
+    "name": "eel",
+    "singular": "鳗鱼",
+    "plural": "鳗鱼",
+    "icon": "eel.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 700
+    }
   },
   "fish_and_chips": {
+    "index": 117,
     "name": "fish and chips",
-    "singular": "serving of fish and chips",
-    "plural": "servings of fish and chips",
+    "singular": "炸鱼薯条",
+    "plural": "炸鱼薯条",
+    "icon": "fish-and-chips.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1400
+    },
     "recipe": {
       "recipe_name": "fish and chips",
       "difficulty": 2,
@@ -1121,23 +1830,46 @@ setup.pcBakeryFoodBaseline = {
         "vegetable_oil",
         "flour"
       ],
+      "ingredients_cn": [
+        "鳕鱼",
+        "薯条",
+        "植物油",
+        "面粉"
+      ],
+      "ingredient_alternatives": {
+        "normal": {
+          "cod": [
+            "haddock",
+            "whiting",
+            "flounder",
+            "bass",
+            "perch",
+            "pike"
+          ]
+        },
+        "lewd": {}
+      },
       "tags": []
     },
     "food": {
       "tags": [
         "seafood"
       ]
-    },
-    "shop": {
-      "sell_price": 1400
-    },
-    "icon": "fish-and-chips.png"
+    }
   },
   "flapjack": {
+    "index": 107,
     "name": "flapjack",
-    "singular": "flapjack square",
-    "plural": "flapjack squares",
+    "singular": "燕麦小方",
+    "plural": "燕麦小方",
+    "icon": "flapjack.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 100
+    },
     "recipe": {
       "recipe_name": "flapjack squares",
       "difficulty": 2,
@@ -1149,6 +1881,12 @@ setup.pcBakeryFoodBaseline = {
         "oats",
         "lemon"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "糖",
+        "燕麦",
+        "柠檬"
+      ],
       "tags": []
     },
     "food": {
@@ -1157,17 +1895,35 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
+    }
+  },
+  "flounder": {
+    "index": 155,
+    "name": "flounder",
+    "singular": "比目鱼",
+    "plural": "比目鱼",
+    "icon": "flounder.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
     "shop": {
-      "sell_price": 100
-    },
-    "icon": "flapjack.png"
+      "sell_price": 400
+    }
   },
   "flour": {
+    "index": 41,
     "name": "flour",
-    "singular": "spoonful of flour",
-    "plural": "spoonfuls of flour",
+    "singular": "面粉",
+    "plural": "面粉",
+    "icon": "flour.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 10
+    },
     "recipe": {
       "recipe_name": "flour",
       "difficulty": 1,
@@ -1176,18 +1932,25 @@ setup.pcBakeryFoodBaseline = {
       "ingredients": [
         "wheat"
       ],
+      "ingredients_cn": [
+        "小麦"
+      ],
       "tags": []
-    },
-    "shop": {
-      "sell_price": 10
-    },
-    "icon": "flour.png"
+    }
   },
   "full_english_breakfast": {
+    "index": 113,
     "name": "full english breakfast",
-    "singular": "full English breakfast",
-    "plural": "full English breakfasts",
+    "singular": "英式早餐",
+    "plural": "英式早餐",
+    "icon": "full-english-breakfast.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 900
+    },
     "recipe": {
       "recipe_name": "Full English breakfast",
       "difficulty": 2,
@@ -1205,27 +1968,48 @@ setup.pcBakeryFoodBaseline = {
     },
     "food": {
       "tags": []
-    },
-    "shop": {
-      "sell_price": 900
-    },
-    "icon": "full-english-breakfast.png"
+    }
   },
   "garlic_bulb": {
+    "index": 22,
     "name": "garlic bulb",
-    "singular": "garlic bulb",
-    "plural": "garlic bulbs",
+    "singular": "大蒜",
+    "plural": "大蒜",
+    "icon": "garlic.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 8,
+      "yield_multiplier": 3,
+      "has_seeds": true,
+      "seasons": [
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 100
     },
-    "icon": "garlic.png"
+    "is_fishing_bait": true
   },
   "ghostbrew": {
+    "index": 138,
     "name": "ghostbrew",
-    "singular": "bottle of ghostbrew",
-    "plural": "bottles of ghostbrew",
+    "singular": "幽灵菇酒",
+    "plural": "幽灵菇酒",
+    "icon": "ghostbrew.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "drink",
+    "shop": {
+      "sell_price": 3000
+    },
     "recipe": {
       "recipe_name": "ghostbrew",
       "difficulty": 5,
@@ -1236,6 +2020,11 @@ setup.pcBakeryFoodBaseline = {
         "white_wine",
         "strange_flower"
       ],
+      "ingredients_cn": [
+        "幽灵菇",
+        "白葡萄酒",
+        "诡异的"
+      ],
       "tags": []
     },
     "food": {
@@ -1245,40 +2034,70 @@ setup.pcBakeryFoodBaseline = {
         "alcohol",
         "tainted"
       ]
-    },
-    "shop": {
-      "sell_price": 3000
-    },
-    "icon": "ghostbrew.png"
+    }
   },
   "ghostshroom": {
+    "index": 33,
     "name": "ghostshroom",
-    "singular": "ghostshroom",
-    "plural": "ghostshrooms",
+    "singular": "幽灵菇",
+    "plural": "幽灵菇",
+    "icon": "ghostshroom.png",
     "category": "mushroom",
+    "category_cn": "蘑菇",
+    "kitchen_item_type_icon": "recipe-shroom.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 200
-    },
-    "icon": "ghostshroom.png"
+    }
+  },
+  "grayling": {
+    "index": 163,
+    "name": "grayling",
+    "singular": "茴鱼",
+    "plural": "茴鱼",
+    "icon": "grayling.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 900
+    }
   },
   "haddock": {
+    "index": 73,
     "name": "haddock",
-    "singular": "haddock",
-    "plural": "haddock",
+    "singular": "黑线鳕鱼",
+    "plural": "黑线鳕鱼",
+    "icon": "haddock.png",
     "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
     "shop": {
       "sell_price": 600,
       "available_in": [
         "supermarket"
       ]
-    },
-    "icon": "haddock.png"
+    }
   },
   "hamburger": {
+    "index": 77,
     "name": "hamburger",
-    "singular": "hamburger",
-    "plural": "hamburgers",
+    "singular": "汉堡",
+    "plural": "汉堡",
+    "icon": "burger.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 600
+    },
     "recipe": {
       "recipe_name": "hamburgers",
       "difficulty": 1,
@@ -1290,21 +2109,45 @@ setup.pcBakeryFoodBaseline = {
         "onion",
         "tomato"
       ],
+      "ingredients_cn": [
+        "牛肉",
+        "面包",
+        "洋葱",
+        "番茄"
+      ],
       "tags": []
     },
     "food": {
       "tags": []
-    },
+    }
+  },
+  "herring": {
+    "index": 152,
+    "name": "herring",
+    "singular": "鲱鱼",
+    "plural": "鲱鱼",
+    "icon": "herring.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
     "shop": {
-      "sell_price": 600
-    },
-    "icon": "burger.png"
+      "sell_price": 150
+    }
   },
   "honey": {
+    "index": 54,
     "name": "honey",
-    "singular": "spoonful of honey",
-    "plural": "spoonfuls of honey",
+    "singular": "蜂蜜",
+    "plural": "蜂蜜",
+    "icon": "honey.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 10
+    },
     "recipe": {
       "recipe_name": "honey",
       "difficulty": 1,
@@ -1313,18 +2156,25 @@ setup.pcBakeryFoodBaseline = {
       "ingredients": [
         "wild_honeycomb"
       ],
+      "ingredients_cn": [
+        "野生蜂巢"
+      ],
       "tags": []
-    },
-    "shop": {
-      "sell_price": 10
-    },
-    "icon": "honey.png"
+    }
   },
   "honeyed_pork": {
+    "index": 74,
     "name": "honeyed pork",
-    "singular": "serving of honeyed pork",
-    "plural": "servings of honeyed pork",
+    "singular": "蜜汁猪肉",
+    "plural": "蜜汁猪肉",
+    "icon": "honeyed-pork.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1100
+    },
     "recipe": {
       "recipe_name": "honeyed pork",
       "difficulty": 2,
@@ -1336,23 +2186,33 @@ setup.pcBakeryFoodBaseline = {
         "honey",
         "chicken_egg"
       ],
+      "ingredients_cn": [
+        "猪肉",
+        "盐",
+        "蜂蜜",
+        "鸡蛋"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "carnivore"
       ]
-    },
-    "shop": {
-      "sell_price": 1100
-    },
-    "icon": "honeyed-pork.png"
+    }
   },
   "jam": {
+    "index": 95,
     "name": "jam",
-    "singular": "cup of jam",
-    "plural": "cups of jam",
+    "singular": "杯装果酱",
+    "plural": "杯装果酱",
+    "icon": "jam.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 200
+    },
     "recipe": {
       "recipe_name": "jam",
       "difficulty": 1,
@@ -1362,18 +2222,26 @@ setup.pcBakeryFoodBaseline = {
         "strawberry",
         "sugar"
       ],
+      "ingredients_cn": [
+        "草莓",
+        "糖"
+      ],
       "tags": []
-    },
-    "shop": {
-      "sell_price": 200
-    },
-    "icon": "jam.png"
+    }
   },
   "jammie_dodger": {
+    "index": 94,
     "name": "jammie dodger",
-    "singular": "jammie dodger",
-    "plural": "jammie dodgers",
+    "singular": "果酱夹心饼干",
+    "plural": "果酱夹心饼干",
+    "icon": "jammie-dodger.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 80
+    },
     "recipe": {
       "recipe_name": "jammie dodgers",
       "difficulty": 1,
@@ -1386,6 +2254,13 @@ setup.pcBakeryFoodBaseline = {
         "chicken_egg",
         "jam"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "糖",
+        "黄油",
+        "鸡蛋",
+        "果酱"
+      ],
       "tags": []
     },
     "food": {
@@ -1394,17 +2269,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 80
-    },
-    "icon": "jammie-dodger.png"
+    }
   },
   "kedgeree": {
+    "index": 71,
     "name": "kedgeree",
-    "singular": "serving of kedgeree",
-    "plural": "servings of kedgeree",
+    "singular": "鱼蛋烩饭",
+    "plural": "鱼蛋烩饭",
+    "icon": "kedgeree.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1600
+    },
     "recipe": {
       "recipe_name": "kedgeree",
       "difficulty": 3,
@@ -1419,23 +2298,50 @@ setup.pcBakeryFoodBaseline = {
         "lemon",
         "cream"
       ],
+      "ingredients_cn": [
+        "黑线鳕鱼",
+        "米",
+        "鸡蛋",
+        "黄油",
+        "植物油",
+        "柠檬",
+        "奶油"
+      ],
+      "ingredient_alternatives": {
+        "normal": {
+          "haddock": [
+            "cod",
+            "herring",
+            "mackerel",
+            "salmon",
+            "trout",
+            "whiting",
+            "eel"
+          ]
+        },
+        "lewd": {}
+      },
       "tags": []
     },
     "food": {
       "tags": [
         "seafood"
       ]
-    },
-    "shop": {
-      "sell_price": 1600
-    },
-    "icon": "kedgeree.png"
+    }
   },
   "lasagne": {
+    "index": 84,
     "name": "lasagne",
-    "singular": "serving of lasagne",
-    "plural": "servings of lasagne",
+    "singular": "千层面",
+    "plural": "千层面",
+    "icon": "lasagne.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1400
+    },
     "recipe": {
       "recipe_name": "lasagne",
       "difficulty": 3,
@@ -1449,6 +2355,14 @@ setup.pcBakeryFoodBaseline = {
         "garlic_bulb",
         "tomato"
       ],
+      "ingredients_cn": [
+        "意大利面",
+        "牛肉",
+        "芝士",
+        "面粉",
+        "大蒜",
+        "番茄"
+      ],
       "ingredient_alternatives": {
         "normal": {
           "beef": [
@@ -1461,27 +2375,50 @@ setup.pcBakeryFoodBaseline = {
     },
     "food": {
       "tags": []
-    },
-    "shop": {
-      "sell_price": 1400
-    },
-    "icon": "lasagne.png"
+    }
   },
   "lemon": {
+    "index": 11,
     "name": "lemon",
-    "singular": "lemon",
-    "plural": "lemons",
+    "singular": "柠檬",
+    "plural": "柠檬",
+    "icon": "lemon.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 28,
+      "regrow_days": 7,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
     "shop": {
       "sell_price": 120
     },
-    "icon": "lemon.png"
+    "is_fishing_bait": true
   },
   "lemon_meringue_pie": {
+    "index": 97,
     "name": "lemon meringue pie",
-    "singular": "lemon meringue pie",
-    "plural": "lemon meringue pies",
+    "singular": "柠檬酥皮派",
+    "plural": "柠檬酥皮派",
+    "icon": "lemon-meringue-pie.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1100
+    },
     "recipe": {
       "recipe_name": "lemon meringue pie",
       "difficulty": 3,
@@ -1494,6 +2431,13 @@ setup.pcBakeryFoodBaseline = {
         "butter",
         "chicken_egg"
       ],
+      "ingredients_cn": [
+        "酥皮",
+        "柠檬",
+        "糖",
+        "黄油",
+        "鸡蛋"
+      ],
       "tags": []
     },
     "food": {
@@ -1501,17 +2445,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1600
-    },
-    "icon": "lemon-meringue-pie.png"
+    }
   },
   "lemonade": {
+    "index": 127,
     "name": "lemonade",
-    "singular": "glass of lemonade",
-    "plural": "glasses of lemonade",
+    "singular": "杯装柠檬水",
+    "plural": "杯装柠檬水",
+    "icon": "lemonade.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "drink",
+    "shop": {
+      "sell_price": 100
+    },
     "recipe": {
       "recipe_name": "lemonade",
       "difficulty": 1,
@@ -1521,6 +2469,10 @@ setup.pcBakeryFoodBaseline = {
         "lemon",
         "sugar"
       ],
+      "ingredients_cn": [
+        "柠檬",
+        "糖"
+      ],
       "tags": []
     },
     "food": {
@@ -1528,40 +2480,80 @@ setup.pcBakeryFoodBaseline = {
         "vegan",
         "drink"
       ]
-    },
-    "shop": {
-      "sell_price": 100
-    },
-    "icon": "lemonade.png"
+    }
   },
   "lily": {
+    "index": 6,
     "name": "lily",
-    "singular": "lily",
-    "plural": "lilies",
+    "singular": "百合",
+    "plural": "百合",
+    "icon": "lily.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 10,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 200
-    },
-    "icon": "lily.png"
+    }
   },
   "lime": {
+    "index": 110,
     "name": "lime",
-    "singular": "lime",
-    "plural": "limes",
+    "singular": "酸橙",
+    "plural": "酸橙",
+    "icon": "lime.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 25,
+      "regrow_days": 7,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
     "shop": {
       "sell_price": 250,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "lime.png"
+    "is_fishing_bait": true
   },
   "linguine": {
+    "index": 111,
     "name": "linguine",
-    "singular": "serving of linguine",
-    "plural": "servings of linguine",
+    "singular": "扁意面",
+    "plural": "扁意面",
+    "icon": "linguine.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 700
+    },
     "recipe": {
       "recipe_name": "linguine",
       "difficulty": 3,
@@ -1573,33 +2565,62 @@ setup.pcBakeryFoodBaseline = {
         "pasta",
         "cream"
       ],
+      "ingredients_cn": [
+        "植物油",
+        "柠檬",
+        "意大利面",
+        "奶油"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 700
-    },
-    "icon": "linguine.png"
+    }
   },
   "lotus": {
+    "index": 5,
     "name": "lotus",
-    "singular": "lotus",
-    "plural": "lotuses",
+    "singular": "睡莲",
+    "plural": "睡莲",
+    "icon": "lotus.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "water",
+      "growth_days": 5,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn",
+        "winter"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 300
-    },
-    "icon": "lotus.png"
+    }
   },
   "macaroni_cheese": {
+    "index": 47,
     "name": "macaroni cheese",
-    "singular": "serving of macaroni and cheese",
-    "plural": "servings of macaroni and cheese",
+    "singular": "奶酪通心粉",
+    "plural": "奶酪通心粉",
+    "icon": "macaroni-cheese.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 800
+    },
     "recipe": {
       "recipe_name": "macaroni and cheese",
       "difficulty": 2,
@@ -1612,23 +2633,48 @@ setup.pcBakeryFoodBaseline = {
         "pasta",
         "salt"
       ],
+      "ingredients_cn": [
+        "牛奶",
+        "芝士",
+        "面粉",
+        "意大利面",
+        "盐"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
+    }
+  },
+  "mackerel": {
+    "index": 154,
+    "name": "mackerel",
+    "singular": "鲭鱼",
+    "plural": "鲭鱼",
+    "icon": "mackerel.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
     "shop": {
-      "sell_price": 800
-    },
-    "icon": "macaroni-cheese.png"
+      "sell_price": 200
+    }
   },
   "melting_moment": {
+    "index": 90,
     "name": "melting moment",
-    "singular": "melting moment",
-    "plural": "melting moments",
+    "singular": "入口即化饼干",
+    "plural": "入口即化饼干",
+    "icon": "melting-moment.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 80
+    },
     "recipe": {
       "recipe_name": "melting moments",
       "difficulty": 1,
@@ -1640,6 +2686,12 @@ setup.pcBakeryFoodBaseline = {
         "sugar",
         "jam"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "面粉",
+        "糖",
+        "果酱"
+      ],
       "tags": []
     },
     "food": {
@@ -1648,17 +2700,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 80
-    },
-    "icon": "melting-moment.png"
+    }
   },
   "mince_pie": {
+    "index": 60,
     "name": "mince pie",
-    "singular": "mince pie",
-    "plural": "mince pies",
+    "singular": "百果馅饼",
+    "plural": "百果馅饼",
+    "icon": "mince-pie.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 400
+    },
     "recipe": {
       "recipe_name": "mince pie",
       "difficulty": 2,
@@ -1669,6 +2725,11 @@ setup.pcBakeryFoodBaseline = {
         "blackberry",
         "sugar"
       ],
+      "ingredients_cn": [
+        "酥皮",
+        "黑莓",
+        "糖"
+      ],
       "tags": []
     },
     "food": {
@@ -1676,27 +2737,39 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 400
-    },
-    "icon": "mince-pie.png"
+    }
   },
   "mushroom": {
+    "index": 17,
     "name": "mushroom",
-    "singular": "mushroom",
-    "plural": "mushrooms",
+    "singular": "蘑菇",
+    "plural": "普通蘑菇",
+    "icon": "mushroom.png",
     "category": "mushroom",
+    "category_cn": "蘑菇",
+    "kitchen_item_type_icon": "recipe-shroom.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 100
-    },
-    "icon": "mushroom.png"
+    }
   },
   "naan_bread": {
+    "index": 56,
     "name": "naan bread",
-    "singular": "piece of naan bread",
-    "plural": "pieces of naan bread",
+    "singular": "馕饼",
+    "plural": "馕饼",
+    "icon": "naan-bread.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 200
+    },
     "recipe": {
       "recipe_name": "naan bread",
       "difficulty": 2,
@@ -1709,37 +2782,56 @@ setup.pcBakeryFoodBaseline = {
         "chicken_egg",
         "salt"
       ],
+      "ingredients_cn": [
+        "牛奶",
+        "面粉",
+        "植物油",
+        "鸡蛋",
+        "盐"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 200
-    },
-    "icon": "naan-bread.png"
+    }
   },
   "oats": {
+    "index": 142,
     "name": "oats",
-    "singular": "cup of oat",
-    "plural": "cups of oats",
+    "singular": "杯装燕麦",
+    "plural": "杯装燕麦",
+    "icon": "oats.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 100,
       "available_in": [
         "supermarket"
       ],
       "bought_in_bulk": 5
-    },
-    "icon": "oats.png"
+    }
   },
   "omelette": {
+    "index": 144,
     "name": "omelette",
-    "singular": "omelette",
-    "plural": "omelettes",
+    "singular": "煎蛋卷",
+    "plural": "煎蛋卷",
+    "icon": "omelette.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 300
+    },
     "recipe": {
       "recipe_name": "omelettes",
       "difficulty": 1,
@@ -1750,33 +2842,60 @@ setup.pcBakeryFoodBaseline = {
         "vegetable_oil",
         "butter"
       ],
+      "ingredients_cn": [
+        "鸡蛋",
+        "植物油",
+        "黄油"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 300
-    },
-    "icon": "omelette.png"
+    }
   },
   "onion": {
+    "index": 21,
     "name": "onion",
-    "singular": "onion",
-    "plural": "onions",
+    "singular": "洋葱",
+    "plural": "洋葱",
+    "icon": "onion.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 12,
+      "yield_multiplier": 3,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 120
     },
-    "icon": "onion.png"
+    "is_fishing_bait": true
   },
   "onion_bhaji": {
+    "index": 65,
     "name": "onion bhaji",
-    "singular": "onion bhaji",
-    "plural": "onion bhajis",
+    "singular": "洋葱巴哈吉",
+    "plural": "洋葱巴哈吉",
+    "icon": "onion-bhaji.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 100
+    },
     "recipe": {
       "recipe_name": "onion bhajis",
       "difficulty": 2,
@@ -1787,6 +2906,11 @@ setup.pcBakeryFoodBaseline = {
         "onion",
         "chilli_pepper"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "洋葱",
+        "辣椒"
+      ],
       "tags": []
     },
     "food": {
@@ -1794,30 +2918,53 @@ setup.pcBakeryFoodBaseline = {
         "vegan",
         "spicy"
       ]
-    },
-    "shop": {
-      "sell_price": 100
-    },
-    "icon": "onion-bhaji.png"
+    }
   },
   "orange": {
+    "index": 9,
     "name": "orange",
-    "singular": "orange",
-    "plural": "oranges",
+    "singular": "橘子",
+    "plural": "橙子",
+    "icon": "orange.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 32,
+      "regrow_days": 7,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
     "shop": {
       "sell_price": 300,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "orange.png"
+    "is_fishing_bait": true
   },
   "orange_juice": {
+    "index": 126,
     "name": "orange juice",
-    "singular": "glass of orange juice",
-    "plural": "glasses of orange juice",
+    "singular": "杯装橙汁",
+    "plural": "杯装橙汁",
+    "icon": "orange-juice.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "drink",
+    "shop": {
+      "sell_price": 55
+    },
     "recipe": {
       "recipe_name": "orange juice",
       "difficulty": 1,
@@ -1827,6 +2974,10 @@ setup.pcBakeryFoodBaseline = {
         "orange",
         "sugar"
       ],
+      "ingredients_cn": [
+        "橘子",
+        "糖"
+      ],
       "tags": []
     },
     "food": {
@@ -1834,38 +2985,62 @@ setup.pcBakeryFoodBaseline = {
         "vegan",
         "drink"
       ]
-    },
-    "shop": {
-      "sell_price": 55
-    },
-    "icon": "orange-juice.png"
+    }
   },
   "orchid": {
+    "index": 2,
     "name": "orchid",
-    "singular": "orchid",
-    "plural": "orchids",
+    "singular": "兰花",
+    "plural": "兰花",
+    "icon": "orchid.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 28,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "summer"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 500
-    },
-    "icon": "orchid.png"
+    }
   },
   "oyster_pearl": {
+    "index": 39,
     "name": "oyster pearl",
-    "singular": "oyster pearl",
-    "plural": "oyster pearls",
+    "singular": "牡蛎珍珠",
+    "plural": "牡蛎珍珠",
+    "icon": "oyster-pearl.png",
     "category": "produce",
+    "category_cn": "农产品",
+    "kitchen_item_type_icon": "recipe-produce.png",
+    "prop_folder": "tending",
     "shop": {
       "sell_price": 50000,
       "stall_size": "large"
-    },
-    "icon": "oyster-pearl.png"
+    }
   },
   "pasta": {
+    "index": 48,
     "name": "pasta",
-    "singular": "serving of pasta",
-    "plural": "servings of pasta",
+    "singular": "意大利面",
+    "plural": "意大利面",
+    "icon": "pasta.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 200
+    },
     "recipe": {
       "recipe_name": "pasta",
       "difficulty": 1,
@@ -1877,23 +3052,33 @@ setup.pcBakeryFoodBaseline = {
         "vegetable_oil",
         "salt"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "鸡蛋",
+        "植物油",
+        "盐"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 200
-    },
-    "icon": "pasta.png"
+    }
   },
   "pastry": {
+    "index": 57,
     "name": "pastry",
-    "singular": "piece of pastry",
-    "plural": "pieces of pastry",
+    "singular": "酥皮",
+    "plural": "酥皮",
+    "icon": "pastry.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 150
+    },
     "recipe": {
       "recipe_name": "pastries",
       "difficulty": 1,
@@ -1904,28 +3089,55 @@ setup.pcBakeryFoodBaseline = {
         "flour",
         "salt"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "面粉",
+        "盐"
+      ],
       "tags": []
-    },
-    "shop": {
-      "sell_price": 150
-    },
-    "icon": "pastry.png"
+    }
   },
   "peach": {
+    "index": 15,
     "name": "peach",
-    "singular": "peach",
-    "plural": "peaches",
+    "singular": "桃子",
+    "plural": "桃子",
+    "icon": "peach.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 28,
+      "regrow_days": 5,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer"
+      ]
+    },
     "shop": {
       "sell_price": 65
     },
-    "icon": "peach.png"
+    "is_fishing_bait": true
   },
   "peach_panzanella": {
+    "index": 132,
     "name": "peach panzanella",
-    "singular": "serving of peach panzanella",
-    "plural": "servings of peach panzanella",
+    "singular": "意式蜜桃沙拉",
+    "plural": "意式蜜桃沙拉",
+    "icon": "peach-panzanella.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 600
+    },
     "recipe": {
       "recipe_name": "peach panzanella",
       "difficulty": 2,
@@ -1938,53 +3150,146 @@ setup.pcBakeryFoodBaseline = {
         "vegetable_oil",
         "lemon"
       ],
+      "ingredients_cn": [
+        "桃子",
+        "面包",
+        "芝士",
+        "植物油",
+        "柠檬"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 600
-    },
-    "icon": "peach-panzanella.png"
+    }
   },
   "pear": {
+    "index": 13,
     "name": "pear",
-    "singular": "pear",
-    "plural": "pears",
+    "singular": "梨",
+    "plural": "梨",
+    "icon": "pear.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 32,
+      "regrow_days": 7,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
     "shop": {
       "sell_price": 80
     },
-    "icon": "pear.png"
+    "is_fishing_bait": true
   },
   "pepper": {
+    "index": 70,
     "name": "pepper",
-    "singular": "pepper",
-    "plural": "peppers",
+    "singular": "灯笼椒",
+    "plural": "灯笼椒",
+    "icon": "pepper.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 15,
+      "yield_multiplier": 4,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "winter"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 100
     },
-    "icon": "pepper.png"
+    "is_fishing_bait": true
+  },
+  "perch": {
+    "index": 158,
+    "name": "perch",
+    "singular": "河鲈",
+    "plural": "河鲈",
+    "icon": "perch.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 250
+    }
+  },
+  "pike": {
+    "index": 160,
+    "name": "pike",
+    "singular": "狗鱼",
+    "plural": "狗鱼",
+    "icon": "pike.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 800
+    }
   },
   "pink_rose": {
+    "index": 147,
     "name": "pink rose",
-    "singular": "pink rose",
-    "plural": "pink roses",
+    "singular": "粉玫瑰",
+    "plural": "粉玫瑰",
+    "icon": "pink-rose.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 14,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "autumn"
+      ],
+      "tags": []
+    },
     "shop": {
       "sell_price": 400
-    },
-    "icon": "pink-rose.png"
+    }
   },
   "pizza": {
+    "index": 44,
     "name": "pizza",
-    "singular": "pizza",
-    "plural": "pizzas",
+    "singular": "披萨",
+    "plural": "披萨",
+    "icon": "pizza.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1200
+    },
     "recipe": {
       "recipe_name": "pizza",
       "difficulty": 2,
@@ -1996,6 +3301,12 @@ setup.pcBakeryFoodBaseline = {
         "garlic_bulb",
         "cheese"
       ],
+      "ingredients_cn": [
+        "面包",
+        "番茄",
+        "大蒜",
+        "芝士"
+      ],
       "tags": []
     },
     "food": {
@@ -2003,27 +3314,50 @@ setup.pcBakeryFoodBaseline = {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 1200
-    },
-    "icon": "pizza.png"
+    }
   },
   "plum": {
+    "index": 16,
     "name": "plum",
-    "singular": "plum",
-    "plural": "plums",
+    "singular": "李子",
+    "plural": "李子",
+    "icon": "plum.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_tree",
+      "growth_days": 28,
+      "regrow_days": 5,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ]
+    },
     "shop": {
       "sell_price": 80
     },
-    "icon": "plum.png"
+    "is_fishing_bait": true
   },
   "plum_pudding": {
+    "index": 133,
     "name": "plum pudding",
-    "singular": "serving of plum pudding",
-    "plural": "servings of plum pudding",
+    "singular": "李子布丁",
+    "plural": "李子布丁",
+    "icon": "plum-pudding.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1200
+    },
     "recipe": {
       "recipe_name": "plum pudding",
       "difficulty": 3,
@@ -2039,6 +3373,16 @@ setup.pcBakeryFoodBaseline = {
         "cherry",
         "wild_carrot"
       ],
+      "ingredients_cn": [
+        "李子",
+        "面粉",
+        "面包",
+        "糖",
+        "橘子",
+        "柠檬",
+        "樱桃",
+        "野生胡萝卜"
+      ],
       "tags": []
     },
     "food": {
@@ -2047,27 +3391,49 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1400
-    },
-    "icon": "plum-pudding.png"
+    }
   },
   "plumeria": {
+    "index": 38,
     "name": "plumeria",
-    "singular": "plumeria",
-    "plural": "plumerias",
+    "singular": "鸡蛋花",
+    "plural": "鸡蛋花",
+    "icon": "plumeria.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 12,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 250
-    },
-    "icon": "plumeria.png"
+    }
   },
   "poached_pear": {
+    "index": 131,
     "name": "poached pear",
-    "singular": "poached pear",
-    "plural": "poached pears",
+    "singular": "蜜梨",
+    "plural": "蜜梨",
+    "icon": "poached-pear.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1000
+    },
     "recipe": {
       "recipe_name": "poached pears",
       "difficulty": 3,
@@ -2078,6 +3444,11 @@ setup.pcBakeryFoodBaseline = {
         "sugar",
         "red_wine"
       ],
+      "ingredients_cn": [
+        "梨子",
+        "糖",
+        "红葡萄酒"
+      ],
       "tags": []
     },
     "food": {
@@ -2086,40 +3457,70 @@ setup.pcBakeryFoodBaseline = {
         "alcohol",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1000
-    },
-    "icon": "poached-pear.png"
+    }
   },
   "poppy": {
+    "index": 7,
     "name": "poppy",
-    "singular": "poppy",
-    "plural": "poppies",
+    "singular": "罂粟",
+    "plural": "罂粟",
+    "icon": "poppy.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 8,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 10
+    },
     "shop": {
       "sell_price": 200
-    },
-    "icon": "poppy.png"
+    }
   },
   "pork": {
+    "index": 140,
     "name": "pork",
-    "singular": "serving of pork",
-    "plural": "servings of pork",
+    "singular": "猪肉",
+    "plural": "猪肉",
+    "icon": "pork.png",
     "category": "meat",
+    "category_cn": "肉食",
+    "kitchen_item_type_icon": "recipe-meat.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 700,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "pork.png"
+    "is_fishing_bait": true
   },
   "porridge": {
+    "index": 145,
     "name": "porridge",
-    "singular": "serving of porridge",
-    "plural": "servings of porridge",
+    "singular": "麦片粥",
+    "plural": "麦片粥",
+    "icon": "porridge.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 250
+    },
     "recipe": {
       "recipe_name": "porridge",
       "difficulty": 1,
@@ -2129,33 +3530,60 @@ setup.pcBakeryFoodBaseline = {
         "oats",
         "bottle_of_milk"
       ],
+      "ingredients_cn": [
+        "燕麦",
+        "牛奶"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 250
-    },
-    "icon": "porridge.png"
+    }
   },
   "potato": {
+    "index": 23,
     "name": "potato",
-    "singular": "potato",
-    "plural": "potatoes",
+    "singular": "土豆",
+    "plural": "马铃薯",
+    "icon": "potato.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 7,
+      "yield_multiplier": 5,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "autumn",
+        "winter"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 50
     },
-    "icon": "potato.png"
+    "is_fishing_bait": true
   },
   "potato_pancake": {
+    "index": 64,
     "name": "potato pancake",
-    "singular": "potato pancake",
-    "plural": "potato pancakes",
+    "singular": "土豆煎饼",
+    "plural": "土豆煎饼",
+    "icon": "potato-pancake.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 100
+    },
     "recipe": {
       "recipe_name": "potato pancakes",
       "difficulty": 2,
@@ -2167,36 +3595,55 @@ setup.pcBakeryFoodBaseline = {
         "chicken_egg",
         "vegetable_oil"
       ],
+      "ingredients_cn": [
+        "土豆",
+        "洋葱",
+        "鸡蛋",
+        "植物油"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 100
-    },
-    "icon": "potato-pancake.png"
+    }
   },
   "prawn": {
+    "index": 143,
     "name": "prawn",
-    "singular": "prawn",
-    "plural": "prawns",
+    "singular": "大虾",
+    "plural": "大虾",
+    "icon": "prawn.png",
     "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 300,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "prawn.png"
+    "is_fishing_bait": true
   },
   "prawn_bisque": {
+    "index": 51,
     "name": "prawn bisque",
-    "singular": "serving of prawn bisque",
-    "plural": "servings of prawn bisque",
+    "singular": "鲜虾浓汤",
+    "plural": "鲜虾浓汤",
+    "icon": "prawn-bisque.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1200
+    },
     "recipe": {
       "recipe_name": "prawn bisque",
       "difficulty": 3,
@@ -2210,23 +3657,35 @@ setup.pcBakeryFoodBaseline = {
         "cream",
         "lemon"
       ],
+      "ingredients_cn": [
+        "大虾",
+        "洋葱",
+        "大蒜",
+        "植物油",
+        "奶油",
+        "柠檬"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "seafood"
       ]
-    },
-    "shop": {
-      "sell_price": 1500
-    },
-    "icon": "prawn-bisque.png"
+    }
   },
   "quiche": {
+    "index": 58,
     "name": "quiche",
-    "singular": "serving of quiche",
-    "plural": "servings of quiche",
+    "singular": "法式咸派",
+    "plural": "法式咸派",
+    "icon": "quiche.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 600
+    },
     "recipe": {
       "recipe_name": "quiche",
       "difficulty": 3,
@@ -2240,54 +3699,106 @@ setup.pcBakeryFoodBaseline = {
         "cheese",
         "tomato"
       ],
+      "ingredients_cn": [
+        "酥皮",
+        "牛奶",
+        "鸡蛋",
+        "培根",
+        "芝士",
+        "番茄"
+      ],
       "tags": []
     },
     "food": {
       "tags": []
-    },
-    "shop": {
-      "sell_price": 200
-    },
-    "icon": "quiche.png"
+    }
   },
   "red_rose": {
+    "index": 0,
     "name": "red rose",
-    "singular": "red rose",
-    "plural": "red roses",
+    "singular": "红玫瑰",
+    "plural": "红玫瑰",
+    "icon": "red-rose.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 14,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 350
-    },
-    "icon": "red-rose.png"
+    }
   },
   "red_wine": {
+    "index": 129,
     "name": "red wine",
-    "singular": "bottle of red wine",
-    "plural": "bottles of red wine",
+    "singular": "红酒",
+    "plural": "红酒",
+    "icon": "red-wine.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "drink",
     "shop": {
       "sell_price": 600,
       "available_in": [
         "supermarket"
       ]
-    },
-    "icon": "red-wine.png"
+    }
   },
   "rice": {
+    "index": 72,
     "name": "rice",
-    "singular": "cup of rice",
-    "plural": "cups of rice",
+    "singular": "杯装米",
+    "plural": "杯装米",
+    "icon": "rice.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "water",
+      "growth_days": 26,
+      "yield_multiplier": 20,
+      "has_seeds": true,
+      "seed_name": "大米",
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 20
+    },
+    "shop": {
+      "sell_price": 50
+    }
+  },
+  "rich_biscuit": {
+    "index": 88,
+    "name": "rich biscuit",
+    "singular": "富贵饼干",
+    "plural": "富贵饼干",
+    "icon": "rich-biscuit.png",
+    "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
     "shop": {
       "sell_price": 50
     },
-    "icon": "rice.png"
-  },
-  "rich_biscuit": {
-    "name": "rich biscuit",
-    "singular": "rich biscuit",
-    "plural": "rich biscuits",
-    "category": "dish",
     "recipe": {
       "recipe_name": "rich biscuits",
       "difficulty": 1,
@@ -2299,6 +3810,12 @@ setup.pcBakeryFoodBaseline = {
         "sugar",
         "lemon"
       ],
+      "ingredients_cn": [
+        "鸡蛋",
+        "面粉",
+        "糖",
+        "柠檬"
+      ],
       "tags": []
     },
     "food": {
@@ -2307,22 +3824,54 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
+    }
+  },
+  "roach": {
+    "index": 157,
+    "name": "roach",
+    "singular": "拟鲤",
+    "plural": "拟鲤",
+    "icon": "roach.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
     "shop": {
-      "sell_price": 50
-    },
-    "icon": "rich-biscuit.png"
+      "sell_price": 80
+    }
   },
   "roast_dinner": {
+    "index": 124,
     "name": "roast dinner",
-    "singular": "serving of roast dinner",
-    "plural": "servings of roast dinner",
+    "singular": "晚餐烤肉",
+    "plural": "晚餐烤肉",
+    "icon": "roast-dinner.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 2400
+    },
     "recipe": {
       "recipe_name": "roast dinner",
       "difficulty": 3,
       "cook_minutes": 60,
       "servings": 1,
+      "ingredients_cn": [
+        "约克郡布丁",
+        "馅料",
+        "鸡肉",
+        "牛排",
+        "猪肉",
+        "土豆",
+        "野生胡萝卜",
+        "卷心菜",
+        "洋葱",
+        "大头菜",
+        "植物油",
+        "盐"
+      ],
       "ingredients": [
         "yorkshire_pudding",
         "stuffing",
@@ -2341,17 +3890,21 @@ setup.pcBakeryFoodBaseline = {
     },
     "food": {
       "tags": []
-    },
-    "shop": {
-      "sell_price": 2400
-    },
-    "icon": "roast-dinner.png"
+    }
   },
   "salad": {
+    "index": 135,
     "name": "salad",
-    "singular": "serving of salad",
-    "plural": "servings of salad",
+    "singular": "沙拉",
+    "plural": "沙拉",
+    "icon": "salad.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1100
+    },
     "recipe": {
       "recipe_name": "salad",
       "difficulty": 2,
@@ -2366,36 +3919,57 @@ setup.pcBakeryFoodBaseline = {
         "pepper",
         "lime"
       ],
+      "ingredients_cn": [
+        "菠菜",
+        "番茄",
+        "洋葱",
+        "大蒜",
+        "辣椒",
+        "灯笼椒",
+        "酸橙"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegan"
       ]
-    },
-    "shop": {
-      "sell_price": 1100
-    },
-    "icon": "salad.png"
+    }
   },
   "salmon": {
+    "index": 81,
     "name": "salmon",
-    "singular": "salmon",
-    "plural": "salmon",
+    "singular": "鲑鱼",
+    "plural": "鲑鱼",
+    "icon": "salmon.png",
     "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 600,
       "available_in": [
         "supermarket"
       ]
-    },
-    "icon": "salmon.png"
+    }
   },
   "salmon_wellington": {
+    "index": 76,
     "name": "salmon wellington",
-    "singular": "serving of salmon wellington",
-    "plural": "servings of salmon wellington",
+    "singular": "惠灵顿鲑鱼",
+    "plural": "惠灵顿鲑鱼",
+    "icon": "salmon-wellington.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1600
+    },
     "recipe": {
       "recipe_name": "salmon wellington",
       "difficulty": 3,
@@ -2408,35 +3982,50 @@ setup.pcBakeryFoodBaseline = {
         "chicken_egg",
         "salt"
       ],
+      "ingredients_cn": [
+        "鲑鱼",
+        "西兰花",
+        "酥皮",
+        "鸡蛋",
+        "盐"
+      ],
       "tags": []
     },
     "food": {
       "tags": []
-    },
-    "shop": {
-      "sell_price": 1800
-    },
-    "icon": "salmon-wellington.png"
+    }
   },
   "salt": {
+    "index": 42,
     "name": "salt",
-    "singular": "pinch of salt",
-    "plural": "pinches of salt",
+    "singular": "盐",
+    "plural": "盐",
+    "icon": "salt.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
     "shop": {
       "sell_price": 5,
       "available_in": [
         "supermarket"
       ],
       "bought_in_bulk": 25
-    },
-    "icon": "salt.png"
+    }
   },
   "samosa": {
+    "index": 67,
     "name": "samosa",
-    "singular": "samosa",
-    "plural": "samosas",
+    "singular": "咖喱角",
+    "plural": "咖喱角",
+    "icon": "samosa.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 60
+    },
     "recipe": {
       "recipe_name": "samosas",
       "difficulty": 3,
@@ -2448,6 +4037,12 @@ setup.pcBakeryFoodBaseline = {
         "chilli_pepper",
         "lemon"
       ],
+      "ingredients_cn": [
+        "酥皮",
+        "土豆",
+        "辣椒",
+        "柠檬"
+      ],
       "tags": []
     },
     "food": {
@@ -2455,30 +4050,39 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "spicy"
       ]
-    },
-    "shop": {
-      "sell_price": 60
-    },
-    "icon": "samosa.png"
+    }
   },
   "sausage": {
+    "index": 63,
     "name": "sausage",
-    "singular": "sausage",
-    "plural": "sausages",
+    "singular": "香肠",
+    "plural": "香肠",
+    "icon": "sausage.png",
     "category": "meat",
+    "category_cn": "肉食",
+    "kitchen_item_type_icon": "recipe-meat.png",
+    "prop_folder": "ingredient",
     "shop": {
       "sell_price": 200,
       "available_in": [
         "supermarket"
       ]
     },
-    "icon": "sausage.png"
+    "is_fishing_bait": true
   },
   "sausage_roll": {
+    "index": 62,
     "name": "sausage roll",
-    "singular": "sausage roll",
-    "plural": "sausage rolls",
+    "singular": "香肠卷",
+    "plural": "香肠卷",
+    "icon": "sausage-roll.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 150
+    },
     "recipe": {
       "recipe_name": "sausage rolls",
       "difficulty": 2,
@@ -2491,21 +4095,32 @@ setup.pcBakeryFoodBaseline = {
         "chicken_egg",
         "lemon"
       ],
+      "ingredients_cn": [
+        "酥皮",
+        "盐",
+        "香肠",
+        "鸡蛋",
+        "柠檬"
+      ],
       "tags": []
     },
     "food": {
       "tags": []
-    },
+    }
+  },
+  "scone": {
+    "index": 100,
+    "name": "scone",
+    "singular": "司康饼",
+    "plural": "司康饼",
+    "icon": "scone.png",
+    "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
     "shop": {
       "sell_price": 150
     },
-    "icon": "sausage-roll.png"
-  },
-  "scone": {
-    "name": "scone",
-    "singular": "scone",
-    "plural": "scones",
-    "category": "dish",
     "recipe": {
       "recipe_name": "scones",
       "difficulty": 2,
@@ -2518,6 +4133,13 @@ setup.pcBakeryFoodBaseline = {
         "salt",
         "bottle_of_milk"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "黄油",
+        "糖",
+        "盐",
+        "牛奶"
+      ],
       "tags": []
     },
     "food": {
@@ -2525,17 +4147,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
+    }
+  },
+  "shortbread": {
+    "index": 89,
+    "name": "shortbread",
+    "singular": "黄油酥饼",
+    "plural": "黄油酥饼",
+    "icon": "shortbread.png",
+    "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
     "shop": {
       "sell_price": 150
     },
-    "icon": "scone.png"
-  },
-  "shortbread": {
-    "name": "shortbread",
-    "singular": "piece of shortbread",
-    "plural": "pieces of shortbread",
-    "category": "dish",
     "recipe": {
       "recipe_name": "shortbread",
       "difficulty": 2,
@@ -2546,6 +4172,11 @@ setup.pcBakeryFoodBaseline = {
         "flour",
         "sugar"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "面粉",
+        "糖"
+      ],
       "tags": []
     },
     "food": {
@@ -2554,17 +4185,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 150
-    },
-    "icon": "shortbread.png"
+    }
   },
   "souffle": {
+    "index": 95,
     "name": "soufflé",
-    "singular": "soufflé",
-    "plural": "soufflés",
+    "singular": "舒芙蕾",
+    "plural": "舒芙蕾",
+    "icon": "souffle.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1500
+    },
     "recipe": {
       "recipe_name": "soufflés",
       "difficulty": 4,
@@ -2578,6 +4213,14 @@ setup.pcBakeryFoodBaseline = {
         "flour",
         "lemon"
       ],
+      "ingredients_cn": [
+        "鸡蛋",
+        "奶油",
+        "糖",
+        "黄油",
+        "面粉",
+        "柠檬"
+      ],
       "tags": []
     },
     "food": {
@@ -2585,17 +4228,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 3000
-    },
-    "icon": "souffle.png"
+    }
   },
   "spaghetti_bolognese": {
+    "index": 83,
     "name": "spaghetti bolognese",
-    "singular": "serving of spaghetti bolognese",
-    "plural": "servings of spaghetti bolognese",
+    "singular": "肉酱意大利面",
+    "plural": "肉酱意大利面",
+    "icon": "spaghetti-bolognese.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1100
+    },
     "recipe": {
       "recipe_name": "spaghetti bolognese",
       "difficulty": 3,
@@ -2608,31 +4255,60 @@ setup.pcBakeryFoodBaseline = {
         "garlic_bulb",
         "tomato"
       ],
+      "ingredients_cn": [
+        "意大利面",
+        "牛肉",
+        "植物油",
+        "大蒜",
+        "番茄"
+      ],
       "tags": []
     },
     "food": {
       "tags": []
-    },
-    "shop": {
-      "sell_price": 1100
-    },
-    "icon": "spaghetti-bolognese.png"
+    }
   },
   "spinach": {
+    "index": 134,
     "name": "spinach",
-    "singular": "spinach leaf",
-    "plural": "spinach leaves",
+    "singular": "菠菜叶",
+    "plural": "菠菜叶",
+    "icon": "spinach.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 10,
+      "yield_multiplier": 6,
+      "has_seeds": true,
+      "seed_name": "菠菜",
+      "seasons": [
+        "spring",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 60
-    },
-    "icon": "spinach.png"
+    }
   },
   "sponge_cake": {
+    "index": 98,
     "name": "sponge cake",
-    "singular": "sponge cake",
-    "plural": "sponge cakes",
+    "singular": "海绵蛋糕",
+    "plural": "海绵蛋糕",
+    "icon": "sponge-cake.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1000
+    },
     "recipe": {
       "recipe_name": "sponge cake",
       "difficulty": 2,
@@ -2646,6 +4322,14 @@ setup.pcBakeryFoodBaseline = {
         "chicken_egg",
         "jam"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "黄油",
+        "糖",
+        "奶油",
+        "鸡蛋",
+        "果酱"
+      ],
       "tags": []
     },
     "food": {
@@ -2654,17 +4338,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
+    }
+  },
+  "steak": {
+    "index": 112,
+    "name": "steak",
+    "singular": "牛排",
+    "plural": "牛排",
+    "icon": "steak.png",
+    "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
     "shop": {
       "sell_price": 1000
     },
-    "icon": "sponge-cake.png"
-  },
-  "steak": {
-    "name": "steak",
-    "singular": "serving of steak",
-    "plural": "servings of steak",
-    "category": "dish",
     "recipe": {
       "recipe_name": "steak",
       "difficulty": 3,
@@ -2674,23 +4362,31 @@ setup.pcBakeryFoodBaseline = {
         "vegetable_oil",
         "beef"
       ],
+      "ingredients_cn": [
+        "植物油",
+        "牛肉"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "carnivore"
       ]
-    },
+    }
+  },
+  "sticky_toffee_pudding": {
+    "index": 105,
+    "name": "sticky toffee pudding",
+    "singular": "太妃布丁",
+    "plural": "太妃布丁",
+    "icon": "sticky-toffee-pudding.png",
+    "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
     "shop": {
       "sell_price": 1000
     },
-    "icon": "steak.png"
-  },
-  "sticky_toffee_pudding": {
-    "name": "sticky toffee pudding",
-    "singular": "sticky toffee pudding",
-    "plural": "sticky toffee puddings",
-    "category": "dish",
     "recipe": {
       "recipe_name": "sticky toffee pudding",
       "difficulty": 2,
@@ -2705,6 +4401,15 @@ setup.pcBakeryFoodBaseline = {
         "bottle_of_milk",
         "cream"
       ],
+      "ingredients_cn": [
+        "椰枣",
+        "面粉",
+        "鸡蛋",
+        "黄油",
+        "糖",
+        "牛奶",
+        "奶油"
+      ],
       "tags": []
     },
     "food": {
@@ -2712,42 +4417,89 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1200
-    },
-    "icon": "sticky-toffee-pudding.png"
+    }
   },
   "strange_flower": {
+    "index": 24,
     "name": "strange flower",
-    "singular": "strange flower",
-    "plural": "strange flowers",
+    "singular": "奇怪的花",
+    "plural": "诡异的花",
+    "icon": "strange-flower.png",
     "category": "flower",
-    "food": {
-      "tags": [
-        "aphrodisiac"
-      ]
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "ingredient_alternatives": {
+      "normal": [
+        "blood_lemon"
+      ],
+      "lewd": []
+    },
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 28,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn",
+        "winter"
+      ],
+      "tags": []
     },
     "shop": {
       "sell_price": 400
     },
-    "icon": "strange-flower.png"
+    "food": {
+      "tags": [
+        "aphrodisiac"
+      ]
+    }
   },
   "strawberry": {
+    "index": 14,
     "name": "strawberry",
-    "singular": "strawberry",
-    "plural": "strawberries",
+    "singular": "草莓",
+    "plural": "草莓",
+    "icon": "strawberry.png",
     "category": "fruit",
+    "category_cn": "水果",
+    "kitchen_item_type_icon": "recipe-fruit.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": [],
+      "planting_bed": "pc_shrub",
+      "growth_days": 12,
+      "regrow_days": 3,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer"
+      ]
+    },
     "shop": {
       "sell_price": 180
     },
-    "icon": "strawberry.png"
+    "is_fishing_bait": true
   },
   "stuffing": {
+    "index": 123,
     "name": "stuffing",
-    "singular": "stuffing ball",
-    "plural": "stuffing balls",
+    "cn_name_cap": "馅料",
+    "singular": "馅料丸子",
+    "plural": "馅料丸子",
+    "icon": "stuffing.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 100
+    },
     "recipe": {
       "recipe_name": "stuffing",
       "difficulty": 2,
@@ -2761,47 +4513,78 @@ setup.pcBakeryFoodBaseline = {
         "bread",
         "chicken_egg"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "植物油",
+        "洋葱",
+        "大蒜",
+        "面包",
+        "鸡蛋"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 100
-    },
-    "icon": "stuffing.png"
+    }
   },
   "sugar": {
+    "index": 61,
     "name": "sugar",
-    "singular": "spoonful of sugar",
-    "plural": "spoonfuls of sugar",
+    "singular": "小勺糖",
+    "plural": "小勺糖",
+    "icon": "sugar.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
     "shop": {
       "sell_price": 5,
       "available_in": [
         "supermarket"
       ],
       "bought_in_bulk": 25
-    },
-    "icon": "sugar.png"
+    }
   },
   "sunflower": {
+    "index": 149,
     "name": "sunflower",
-    "singular": "sunflower",
-    "plural": "sunflowers",
+    "singular": "向日葵",
+    "plural": "向日葵",
+    "icon": "sunflower.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "planting_bed": "earth",
+      "growth_days": 7,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "summer"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 300
-    },
-    "icon": "sunflower.png"
+    }
   },
   "sweet_and_sour_chicken": {
+    "index": 68,
     "name": "sweet and sour chicken",
-    "singular": "serving of sweet and sour chicken",
-    "plural": "servings of sweet and sour chicken",
+    "singular": "糖醋鸡肉",
+    "plural": "糖醋鸡肉",
+    "icon": "sweet-and-sour-chicken.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 800
+    },
     "recipe": {
       "recipe_name": "sweet and sour chicken",
       "difficulty": 3,
@@ -2814,23 +4597,34 @@ setup.pcBakeryFoodBaseline = {
         "sugar",
         "onion"
       ],
+      "ingredients_cn": [
+        "鸡肉",
+        "植物油",
+        "灯笼椒",
+        "糖",
+        "洋葱"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "spicy"
       ]
-    },
-    "shop": {
-      "sell_price": 800
-    },
-    "icon": "sweet-and-sour-chicken.png"
+    }
   },
   "swiss_roll": {
+    "index": 99,
     "name": "swiss roll",
-    "singular": "Swiss roll",
-    "plural": "Swiss rolls",
+    "singular": "瑞士卷",
+    "plural": "瑞士卷",
+    "icon": "swiss-roll.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1300
+    },
     "recipe": {
       "recipe_name": "Swiss rolls",
       "difficulty": 3,
@@ -2845,6 +4639,15 @@ setup.pcBakeryFoodBaseline = {
         "orange",
         "sugar"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "黄油",
+        "奶油",
+        "鸡蛋",
+        "果酱",
+        "橘子",
+        "糖"
+      ],
       "tags": []
     },
     "food": {
@@ -2852,17 +4655,21 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1500
-    },
-    "icon": "swiss-roll.png"
+    }
   },
   "tart": {
+    "index": 96,
     "name": "tart",
-    "singular": "tart",
-    "plural": "tarts",
+    "singular": "水果挞",
+    "plural": "水果挞",
+    "icon": "tart.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 1000
+    },
     "recipe": {
       "recipe_name": "tarts",
       "difficulty": 2,
@@ -2872,6 +4679,10 @@ setup.pcBakeryFoodBaseline = {
         "pastry",
         "chocolate"
       ],
+      "ingredients_cn": [
+        "酥皮",
+        "巧克力"
+      ],
       "tags": []
     },
     "food": {
@@ -2879,70 +4690,142 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 1000
-    },
-    "icon": "tart.png"
+    }
   },
   "tomato": {
+    "index": 45,
     "name": "tomato",
-    "singular": "tomato",
-    "plural": "tomatoes",
+    "singular": "西红柿",
+    "plural": "西红柿",
+    "icon": "tomato.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 10,
+      "yield_multiplier": 4,
+      "has_seeds": true,
+      "seasons": [
+        "summer",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 70
-    },
-    "icon": "tomato.png"
+    }
   },
   "trout": {
+    "index": 82,
     "name": "trout",
-    "singular": "trout",
-    "plural": "trout",
+    "singular": "鳟鱼",
+    "plural": "鳟鱼",
+    "icon": "trout.png",
     "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 800,
       "available_in": [
         "supermarket"
       ]
-    },
-    "icon": "trout.png"
+    }
   },
   "truffle": {
+    "index": 25,
     "name": "truffle",
-    "singular": "truffle",
-    "plural": "truffles",
+    "singular": "松露",
+    "plural": "松露",
+    "icon": "truffle.png",
     "category": "mushroom",
+    "category_cn": "蘑菇",
+    "kitchen_item_type_icon": "recipe-shroom.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
+    },
     "shop": {
       "sell_price": 800
-    },
-    "icon": "truffle.png"
+    }
   },
   "tulip": {
+    "index": 4,
     "name": "tulip",
-    "singular": "tulip",
-    "plural": "tulips",
+    "singular": "郁金香",
+    "plural": "郁金香",
+    "icon": "tulip.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 12,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 200
-    },
-    "icon": "tulip.png"
+    }
   },
   "turnip": {
+    "index": 31,
     "name": "turnip",
-    "singular": "turnip",
-    "plural": "turnips",
+    "singular": "萝卜",
+    "plural": "萝卜",
+    "icon": "turnip.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 12,
+      "yield_multiplier": 2,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn",
+        "winter"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 130
-    },
-    "icon": "turnip.png"
+    }
   },
   "turnip_soup": {
+    "index": 146,
     "name": "turnip soup",
-    "singular": "serving of turnip soup",
-    "plural": "servings of turnip soup",
+    "singular": "萝卜浓汤",
+    "plural": "萝卜浓汤",
+    "icon": "turnip-soup.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 250
+    },
     "recipe": {
       "recipe_name": "turnip soup",
       "difficulty": 1,
@@ -2955,23 +4838,34 @@ setup.pcBakeryFoodBaseline = {
         "vegetable_oil",
         "salt"
       ],
+      "ingredients_cn": [
+        "萝卜",
+        "土豆",
+        "洋葱",
+        "植物油",
+        "盐"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegan"
       ]
-    },
-    "shop": {
-      "sell_price": 250
-    },
-    "icon": "turnip-soup.png"
+    }
   },
   "valentines_chocolate": {
+    "index": 148,
     "name": "valentines chocolate",
-    "singular": "slab of valentines chocolate",
-    "plural": "slabs of valentines chocolate",
+    "singular": "情人节巧克力",
+    "plural": "情人节巧克力",
+    "icon": "valentines-chocolate.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 900
+    },
     "recipe": {
       "recipe_name": "valentines chocolate",
       "difficulty": 1,
@@ -2983,6 +4877,12 @@ setup.pcBakeryFoodBaseline = {
         "cocoa_powder",
         "pear"
       ],
+      "ingredients_cn": [
+        "黄油",
+        "牛奶",
+        "可可粉",
+        "梨"
+      ],
       "tags": []
     },
     "food": {
@@ -2990,85 +4890,170 @@ setup.pcBakeryFoodBaseline = {
         "vegetarian",
         "sweet"
       ]
-    },
-    "shop": {
-      "sell_price": 900
-    },
-    "icon": "valentines-chocolate.png"
+    }
   },
   "vegetable_oil": {
+    "index": 43,
     "name": "vegetable oil",
-    "singular": "spoonful of vegetable oil",
-    "plural": "spoonfuls of vegetable oil",
+    "singular": "植物油",
+    "plural": "植物油",
+    "icon": "vegetable-oil.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "ingredient",
     "shop": {
       "sell_price": 10,
       "available_in": [
         "supermarket"
       ],
       "bought_in_bulk": 25
-    },
-    "icon": "vegetable-oil.png"
+    }
   },
   "wheat": {
+    "index": 50,
     "name": "wheat",
-    "singular": "cup of wheat",
-    "plural": "cups of wheat",
+    "singular": "杯装小麦",
+    "plural": "杯装小麦",
+    "icon": "wheat.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 9,
+      "yield_multiplier": 12,
+      "has_seeds": true,
+      "seed_name": "小麦",
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 40
-    },
-    "icon": "wheat.png"
+    }
   },
   "white_rose": {
+    "index": 1,
     "name": "white rose",
-    "singular": "white rose",
-    "plural": "white roses",
+    "singular": "白玫瑰",
+    "plural": "白玫瑰",
+    "icon": "white-rose.png",
     "category": "flower",
+    "category_cn": "花卉",
+    "kitchen_item_type_icon": "recipe-flower.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 14,
+      "yield_multiplier": 1,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 350
-    },
-    "icon": "white-rose.png"
+    }
   },
   "white_wine": {
+    "index": 130,
     "name": "white wine",
-    "singular": "bottle of white wine",
-    "plural": "bottles of white wine",
+    "singular": "白葡萄酒",
+    "plural": "白葡萄酒",
+    "icon": "white-wine.png",
     "category": "ingredient",
+    "category_cn": "配料",
+    "kitchen_item_type_icon": "recipe-ingredient.png",
+    "prop_folder": "drink",
     "shop": {
       "sell_price": 600,
       "available_in": [
         "supermarket"
       ]
-    },
-    "icon": "white-wine.png"
+    }
+  },
+  "whiting": {
+    "index": 153,
+    "name": "whiting",
+    "singular": "牙鳕",
+    "plural": "牙鳕",
+    "icon": "whiting.png",
+    "category": "seafood",
+    "category_cn": "海鲜",
+    "kitchen_item_type_icon": "recipe-seafood.png",
+    "prop_folder": "ingredient",
+    "shop": {
+      "sell_price": 300
+    }
   },
   "wild_carrot": {
+    "index": 20,
     "name": "wild carrot",
-    "singular": "wild carrot",
-    "plural": "carrots",
+    "singular": "野胡萝卜",
+    "plural": "胡萝卜",
+    "icon": "carrot.png",
     "category": "vegetable",
+    "category_cn": "蔬菜",
+    "kitchen_item_type_icon": "recipe-vegetable.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "planting_bed": "earth",
+      "growth_days": 10,
+      "yield_multiplier": 3,
+      "has_seeds": true,
+      "seasons": [
+        "spring",
+        "summer",
+        "autumn"
+      ],
+      "tags": [],
+      "featCost": 5
+    },
     "shop": {
       "sell_price": 80
     },
-    "icon": "carrot.png"
+    "is_fishing_bait": true
   },
   "wild_honeycomb": {
+    "index": 19,
     "name": "wild honeycomb",
-    "singular": "wild honeycomb",
-    "plural": "wild honeycombs",
+    "singular": "野生蜂巢",
+    "plural": "野蜂巢",
+    "icon": "wild-honeycomb.png",
     "category": "produce",
+    "category_cn": "农产品",
+    "kitchen_item_type_icon": "recipe-produce.png",
+    "prop_folder": "tending",
     "shop": {
       "sell_price": 12000,
       "stall_size": "large"
-    },
-    "icon": "wild-honeycomb.png"
+    }
   },
   "wolfbrew": {
+    "index": 137,
     "name": "wolfbrew",
-    "singular": "bottle of wolfbrew",
-    "plural": "bottles of wolfbrew",
+    "singular": "狼菇酒",
+    "plural": "狼菇酒",
+    "icon": "wolfbrew.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "drink",
+    "shop": {
+      "sell_price": 3000
+    },
     "recipe": {
       "recipe_name": "wolfbrew",
       "difficulty": 5,
@@ -3079,6 +5064,11 @@ setup.pcBakeryFoodBaseline = {
         "red_wine",
         "strange_flower"
       ],
+      "ingredients_cn": [
+        "狼菇",
+        "红葡萄酒",
+        "诡异的花"
+      ],
       "tags": []
     },
     "food": {
@@ -3088,32 +5078,44 @@ setup.pcBakeryFoodBaseline = {
         "alcohol",
         "tainted"
       ]
-    },
-    "shop": {
-      "sell_price": 3000
-    },
-    "icon": "wolfbrew.png"
+    }
   },
   "wolfshroom": {
+    "index": 18,
     "name": "wolfshroom",
-    "singular": "wolfshroom",
-    "plural": "wolfshrooms",
+    "singular": "狼菇",
+    "plural": "狼菇",
+    "icon": "wolfshroom.png",
     "category": "mushroom",
-    "food": {
-      "tags": [
-        "aphrodisiac"
-      ]
+    "category_cn": "蘑菇",
+    "kitchen_item_type_icon": "recipe-shroom.png",
+    "prop_folder": "tending",
+    "tending": {
+      "affected_by_tending_skill": true,
+      "tags": []
     },
     "shop": {
       "sell_price": 300
     },
-    "icon": "wolfshroom.png"
+    "food": {
+      "tags": [
+        "aphrodisiac"
+      ]
+    }
   },
   "yorkshire_pudding": {
+    "index": 122,
     "name": "yorkshire pudding",
-    "singular": "yorkshire pudding",
-    "plural": "yorkshire puddings",
+    "singular": "约克郡布丁",
+    "plural": "约克郡布丁",
+    "icon": "yorkshire-pudding.png",
     "category": "dish",
+    "category_cn": "菜肴",
+    "kitchen_item_type_icon": "recipe-food.png",
+    "prop_folder": "food",
+    "shop": {
+      "sell_price": 700
+    },
     "recipe": {
       "recipe_name": "yorkshire pudding",
       "difficulty": 2,
@@ -3125,16 +5127,18 @@ setup.pcBakeryFoodBaseline = {
         "bottle_of_milk",
         "vegetable_oil"
       ],
+      "ingredients_cn": [
+        "面粉",
+        "鸡蛋",
+        "牛奶",
+        "植物油"
+      ],
       "tags": []
     },
     "food": {
       "tags": [
         "vegetarian"
       ]
-    },
-    "shop": {
-      "sell_price": 1200
-    },
-    "icon": "yorkshire-pudding.png"
+    }
   }
 };

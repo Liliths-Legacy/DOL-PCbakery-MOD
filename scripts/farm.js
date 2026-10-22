@@ -125,6 +125,10 @@
         plot.stage = 0;
         plot.days = 0;
         plot.water = 0;
+        // Return the bed to the pre-tilling state. This keeps the fertiliser
+        // option available instead of leaving the empty bed stuck at the
+        // "ready for planting" state (till === 1).
+        plot.till = 0;
         if (v) v.tendingvars ||= {};
         if (v) v.tendingvars.plot_uprooted = true;
         return true;
@@ -139,6 +143,8 @@
     // The woodland passage changes its available actions as the day advances.
     // Add a normal passage link beside the original Leave link, so entry does
     // not depend on a particular woodland option branch being present.
+    // Match the passage destination, not translated Leave text; this is the
+    // sole entry injection path, without an English-only TweeReplacer patch.
     $(document).on(':passagerender.pcBakeryFarm', event => {
         if (event.passage.title !== 'Farm Woodland') return;
         const content = event.content;
@@ -147,7 +153,7 @@
         if (!leave) return;
         const entry = document.createElement('span');
         entry.dataset.pcBakeryWoodlandEntry = 'true';
-        new Wikifier(entry, '<br><<link [[进入PC面包坊种植区 (0:00)|PCBakery Woodland Plots]]>><</link>><br>');
+        new Wikifier(entry, '<br><br><span class="pc-bakery-farm-action"><<gardenicon "plot">><<link [[进入PC面包坊种植区 (0:00)|PCBakery Woodland Plots]]>><</link>></span><br>');
         leave.parentNode.insertBefore(entry, leave.nextSibling);
     });
 

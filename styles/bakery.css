@@ -42,7 +42,7 @@
 .pcb-muted { margin-left: .5rem; font-size: .8em; opacity: .7; }
 .pcb-empty { font-size: .85em; opacity: .7; padding: .3rem 0; }
 .pcb-notice { color: #edb97b; }
-.pcb-settings { display: block; padding: .65rem 0; }
+.settingsToggleItem.pcb-settings { display: block; height: auto; padding: .65rem 0; }
 .pcb-settings label { display: flex; align-items: center; gap: .45rem; }
 .pcb-settings input { margin: 0; }
 .pcb-settings .small-description { margin: .35rem 0 0 1.55rem; font-size: .85em; opacity: .8; }
@@ -68,3 +68,31 @@
 .pcb-order-kind { color: var(--link, #70b4ff); }
 .pcb-order-specified { display: inline-flex; align-items: center; color: var(--gold, #d9b96f); }
 .pcb-order-specified .pcb-food-icon { margin: 0 .1rem; }
+.pcb-waiting-animation { margin: 1rem 0; text-align: center; }
+.pcb-waiting-frames { position: relative; width: 48px; height: 48px; margin: 0 auto .4rem; }
+.pcb-waiting-frame { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; animation: pcb-waiting-frame 2.5s steps(1, end) infinite; }
+.pcb-waiting-frame img { width: 48px; height: 48px; image-rendering: pixelated; }
+.pcb-waiting-frame:nth-child(1) { animation-delay: 0s; }
+.pcb-waiting-frame:nth-child(2) { animation-delay: .5s; }
+.pcb-waiting-frame:nth-child(3) { animation-delay: 1s; }
+.pcb-waiting-frame:nth-child(4) { animation-delay: 1.5s; }
+.pcb-waiting-frame:nth-child(5) { animation-delay: 2s; }
+@keyframes pcb-waiting-frame {
+    0%, 19.99% { opacity: 1; }
+    20%, 100% { opacity: 0; }
+}
+.pc-bakery-farm-action,
+.pc-bakery-leave-option {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+.pc-bakery-farm-action > .icon,
+.pc-bakery-leave-option > .icon {
+    flex-shrink: 0;
+}
+/* Keep the original woodland exit icon and its text on the same baseline. */
+.passage[data-passage="Farm Woodland"] .icon,
+.passage[data-passage="Farm Woodland"] a[data-passage="Farm Work"] {
+    vertical-align: middle;
+}

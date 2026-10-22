@@ -35,9 +35,9 @@
         if (live) return live;
         const baseline = setup.pcBakeryFoodBaseline;
         if (baseline && typeof baseline === 'object') {
-            catalogSource = 'bundled DoL 0.5.11.9';
+            catalogSource = 'bundled DoL 0.5.12.13';
             if (!fallbackReported) {
-                console.warn('[PCBakery] Runtime food catalog unavailable; using bundled 0.5.11.9 recipes. Custom mod recipes are unavailable until their runtime catalog is restored.');
+                console.warn('[PCBakery] Runtime food catalog unavailable; using bundled 0.5.12.13 recipes. Custom mod recipes are unavailable until their runtime catalog is restored.');
                 fallbackReported = true;
             }
             return baseline;
@@ -143,8 +143,8 @@
         el.append(description);
         return el;
     }
-    function signAction(file, text, action) {
-        const el = textAction('', action);
+    function signAction(file, text, action, disabled = false) {
+        const el = textAction('', action, disabled);
         el.className = 'pcb-text-action pcb-sign-action';
         const icon = node('span', undefined, 'pcb-close-icon');
         new Wikifier(icon, '<<icon ' + JSON.stringify(file) + '>>');
@@ -157,7 +157,7 @@
         holder.setAttribute('aria-hidden', 'true');
         const file = foodCatalog()[key]?.icon;
         if (file && State.variables.options?.images !== 0) {
-            // Both supported game versions use the icon macro and the tending image directory.
+            // All supported game versions use the icon macro and the tending image directory.
             new Wikifier(holder, '<<icon ' + JSON.stringify('tending/' + file) + '>>');
         }
         return holder;
@@ -202,17 +202,33 @@
         }
         return el;
     }
+    function waitingAnimation(text) {
+        const wrap = node('div', undefined, 'pcb-waiting-animation');
+        const frames = node('div', undefined, 'pcb-waiting-frames');
+        if (State.variables.options?.images !== 0) {
+            for (let i = 1; i <= 5; i++) {
+                const frame = node('span', undefined, 'pcb-waiting-frame');
+                new Wikifier(frame, '<<icon ' + JSON.stringify('waiting/pc-waiting-' + i + '.png') + '>>');
+                frames.append(frame);
+            }
+        }
+        wrap.append(frames, node('div', text, 'pcb-waiting-text'));
+        return wrap;
+    }
     function mount(root) {
         let filter = '全部', search = '', book = [], notice = '', busy = false;
         let closing = false, justClosed = false;
         let waiting = false, waitingDots = 0, waitingTimer;
-        function act(fn) {
-            if (busy) return;
+        function act(fn, recordHistory = false) {
+            if (busy || !root.isConnected) return;
             busy = true; notice = '';
             const beforeTime = Time.date.timeStamp;
             const beforeMoney = State.variables.money;
             const wasClosed = api.state().session?.phase === 'closed';
-            try { fn(); }
+            try {
+                fn();
+                if (recordHistory) State.create(State.passage);
+            }
             catch (err) { notice = err.message; }
             finally {
                 busy = false;
@@ -231,19 +247,20 @@
             }
         }
         const action = fn => () => act(fn);
+        const gameAction = fn => () => act(fn, true);
         function waitingAction(fn) {
             return () => {
-                if (busy || waiting) return;
+                if (busy || waiting || !root.isConnected) return;
+                const waitingState = State.variables;
                 waiting = true; waitingDots = 0;
                 render();
-                waitingTimer = setInterval(() => {
-                    waitingDots = waitingDots >= 3 ? 1 : waitingDots + 1;
-                    render();
-                }, 500);
                 setTimeout(() => {
-                    clearInterval(waitingTimer); waitingTimer = undefined;
-                    waiting = false; act(fn);
-                }, 0);
+                    waitingTimer = undefined;
+                    waiting = false;
+                    // Rewinding or leaving during the animation invalidates this action.
+                    if (!root.isConnected || State.variables !== waitingState) return;
+                    act(fn, true);
+                }, 2500);
             };
         }
         function renderBook(parent) {
@@ -275,7 +292,7 @@
                 }
                 pane.append(ingredients);
                 const check = api.canCook(key);
-                pane.append(textAction('制作一批', action(() => api.cook(key)), !check.ok, check.ok ? '制作' + label(key) : check.reason));
+                pane.append(textAction('制作一批', gameAction(() => api.cook(key)), !check.ok, check.ok ? '制作' + label(key) : check.reason));
                 if (!check.ok) pane.append(node('span', check.reason, 'pcb-muted'));
             } else pane.append(node('div', '基础原料 · 库存 ' + api.amount(key), 'pcb-recipe-meta'));
             parent.append(pane);
@@ -310,9 +327,9 @@
                     details.setAttribute('aria-expanded', String(book[0] === key));
                     details.setAttribute('aria-controls', 'pcb-recipe-' + key);
                     actions.append(details,
-                        textAction('制作', action(() => api.cook(key)), !check.ok,
+                        textAction('制作', gameAction(() => api.cook(key)), !check.ok,
                             check.ok ? '制作一批：' + recipe.cook_minutes + ' 分钟，产出 ' + recipe.servings + ' 份' : check.reason),
-                        textAction('＋', action(() => api.select(key, 'stock')),
+                        textAction('＋', gameAction(() => api.select(key, 'stock')),
                             !api.sellable(key) || api.available(r, key, 'stock') < 1 || r.selection.length >= 3,
                             api.sellable(key) ? '将一份' + name + '加入提交栏；库存可用 ' + api.available(r, key, 'stock') : '中间原料不能直接提交'));
                     card.append(summary, actions);
@@ -330,7 +347,7 @@
                 if (availableCount <= 0) continue;
                 const row = node('div', undefined, 'pcb-tray-item');
                 row.append(foodIcon(key), node('span', label(key)), node('strong', '×' + availableCount));
-                if (api.sellable(key)) row.append(textAction('＋', action(() => api.select(key, 'tray')),
+                if (api.sellable(key)) row.append(textAction('＋', gameAction(() => api.select(key, 'tray')),
                     api.available(r, key, 'tray') < 1 || r.selection.length >= 3, '将一份现做的' + label(key) + '加入提交栏'));
                 else row.append(node('span', '原料', 'pcb-muted'));
                 trayItems.append(row);
@@ -350,13 +367,13 @@
                 if (x) {
                     slot.append(foodIcon(x.key), node('span', label(x.key), 'pcb-slot-name'),
                         node('span', x.source === 'tray' ? '现做' : '库存', 'pcb-source'),
-                        textAction('移除', action(() => api.remove(i)), false, '从提交栏移除' + label(x.key)));
+                        textAction('移除', gameAction(() => api.remove(i)), false, '从提交栏移除' + label(x.key)));
                 } else slot.append(node('span', '待放入食物'));
                 slots.append(slot);
             }
             const submitActions = node('div', undefined, 'pcb-submit-actions');
             submitActions.append(textAction('放弃订单', onAbandon, false, '放弃当前订单并结算 5 分钟'));
-            submitActions.append(button('提交订单', action(() => api.submit()), r.selection.length === 0));
+            submitActions.append(button('提交订单', gameAction(() => api.submit()), r.selection.length === 0));
             selected.append(slots, submitActions);
             parent.append(selected);
         }
@@ -371,7 +388,7 @@
                 root.append(node('p', '临街的玻璃窗透进柔和的光，木制柜台后摆着几只空烤盘。烤炉占据了厨房的一角，旁边的操作台擦得干净。门外偶尔传来脚步声，海风轻轻拨动门边的招牌。你感觉很安心。'));
                 root.append(node('p', s.leaseUntil ? '租期已到。续租后就能继续使用店面。' : '峭壁街上，一间空置的小店贴着出租告示。推门进去，柜台后是一间配有烤炉的厨房。你可以把这里经营成自己的面包坊。'),
                     node('p', '首版店面：£10,000 / 30 天。租金一次付清，不自动扣款。'),
-                    button(s.leaseUntil ? '续租店面' : '签下租约，领取钥匙', action(() => { api.rent(); notice = '钥匙已交到你手里，面包坊现在由你经营。'; }), State.variables.money < api.RENT));
+                    signAction('pound.png', s.leaseUntil ? '续租店面' : '签下租约，领取钥匙', gameAction(() => { api.rent(); notice = '钥匙已交到你手里，面包坊现在由你经营。'; }), State.variables.money < api.RENT));
             } else {
                 if (r?.phase === 'closed' && r.day === Math.floor(Time.date.timeStamp / 86400)) {
                     root.append(node('p', justClosed
@@ -383,7 +400,7 @@
                 root.append(node('p', '租期剩余 ' + (s.leaseUntil - Math.floor(Time.date.timeStamp / 86400)) + ' 天 · 营业时间 08:00—21:00'));
                 if (!r || r.day !== Math.floor(Time.date.timeStamp / 86400) || r.paused) {
                     root.append(node('p', r?.paused ? '你暂时挂出了休息的牌子。本局订单、托盘与增益均已保留。' : '烤炉和柜台已经准备好了。'),
-                        signAction('pc-open.png', r?.paused ? '继续营业' : '开始营业', action(() => api.start())));
+                        signAction('pc-open.png', r?.paused ? '继续营业' : '开始营业', gameAction(() => api.start())));
                 } else {
                     const incomeLine = node('p');
                     incomeLine.append(node('span', '已完成 ' + r.completed + ' 单 · 今日收入 ' + money(r.income) + ' '));
@@ -393,7 +410,7 @@
                     incomeLine.append(closeIcon, closeAction);
                     if (closing) {
                         root.append(incomeLine, node('p', '结束今日营业？本局增益和临时托盘将清空，今天不能重新开局。'),
-                            button('确认打烊', action(() => { justClosed = true; closing = false; api.close(); })),
+                            button('确认打烊', gameAction(() => { justClosed = true; closing = false; api.close(); })),
                             button('继续营业', action(() => { closing = false; })));
                     } else {
                         root.append(incomeLine);
@@ -409,7 +426,7 @@
                     root.append(buffLine);
                     if (r.phase === 'buff') {
                         if (waiting) {
-                            root.append(node('h3', '选择下一张订单'), node('p', '你站在柜台前，等待客人中…' + '…'.repeat(waitingDots)));
+                            root.append(node('h3', '选择下一张订单'), waitingAnimation('等待客人中……'));
                         } else {
                             root.append(node('h3', '选择一个营业增益'));
                             for (const key of r.buffOffers || []) {
@@ -419,12 +436,12 @@
                         }
                     } else if (r.phase === 'offers') {
                         root.append(node('h3', '选择下一张订单'));
-                        if (waiting) root.append(node('p', '你站在柜台前，等待客人中…' + '…'.repeat(waitingDots)));
-                        else r.offers.forEach((o, i) => root.append(orderOfferButton(o, action(() => { api.accept(i); book = []; }))));
+                        if (waiting) root.append(waitingAnimation('等待客人中……'));
+                        else r.offers.forEach((o, i) => root.append(orderOfferButton(o, gameAction(() => { api.accept(i); book = []; }))));
                     } else if (r.phase === 'order') {
-                        root.append(node('h3', describe(r.current))); renderKitchen(root, r, action(() => api.abandon()));
+                        root.append(node('h3', describe(r.current))); renderKitchen(root, r, gameAction(() => api.abandon()));
                     } else if (r.phase === 'settlement') {
-                        if (waiting) root.append(node('h3', '选择下一张订单'), node('p', '你站在柜台前，等待客人中…' + '…'.repeat(waitingDots)));
+                        if (waiting) root.append(node('h3', '选择下一张订单'), waitingAnimation('等待客人中……'));
                         else if (r.last?.abandoned) root.append(node('p', '你放弃了这张订单。顾客离开了，结算耗时 5 分钟。'), button('迎接下一位顾客', waitingAction(() => api.next())));
                         else root.append(node('p', '顾客收下食物。评分 ' + r.last.score + '，本单收入 ' + money(r.last.income) + '。'), button('迎接下一位顾客', waitingAction(() => api.next())));
                     }
@@ -453,6 +470,12 @@
             }
         };
         const action = fn => () => act(fn);
+        const cookAction = key => action(() => {
+            api.cookStandalone(key);
+            // Cooking happens in-place, so explicitly commit its resulting state.
+            // Each successful batch is one vanilla rewind step, without replaying the passage.
+            State.create(State.passage);
+        });
         function renderBook(parent, key) {
             const item = foodCatalog()[key], recipe = item?.recipe;
             if (!item) return;
@@ -486,7 +509,7 @@
                 }
                 pane.append(ingredients);
                 const check = api.canCookStandalone(key);
-                pane.append(textAction('制作', action(() => api.cookStandalone(key)), !check.ok,
+                pane.append(textAction('制作', cookAction(key), !check.ok,
                     check.ok ? '制作一批' + label(key) : check.reason));
                 if (!check.ok) pane.append(node('span', check.reason, 'pcb-muted'));
             } else pane.append(node('div', '基础原料 · 库存 ' + api.amount(key), 'pcb-recipe-meta'));
@@ -519,7 +542,7 @@
                 const actions = node('div', undefined, 'pcb-actions');
                 const details = textAction('详情', action(() => { book = book[0] === key ? [] : [key]; }));
                 details.setAttribute('aria-expanded', String(book[0] === key));
-                actions.append(details, textAction('制作', action(() => api.cookStandalone(key)),
+                actions.append(details, textAction('制作', cookAction(key),
                     !ingredientsList.length || !check.ok, check.ok ? '制作一批' : check.reason));
                 card.append(summary, actions);
                 if (book[0] === key) renderBook(card, key);
@@ -561,9 +584,7 @@
     function installBakerySettingsTab() {
         if (!document?.querySelector) return;
         for (const tabs of document.querySelectorAll('#overlayTabs')) {
-            const names = Array.from(tabs.querySelectorAll('button')).map(button => button.textContent.trim());
-            const isOptionsTabs = ['General', 'Theme', 'Performance', 'Advanced', 'Information', '通用', '主题', '性能', '高级', '信息']
-                .some(name => names.includes(name));
+            const isOptionsTabs = tabs.closest('#customOverlay')?.getAttribute('data-overlay') === 'options';
             if (!isOptionsTabs || tabs.querySelector('.pcb-settings-tab')) continue;
             const tab = node('button', 'PC面包坊', 'pcb-settings-tab');
             tab.type = 'button';

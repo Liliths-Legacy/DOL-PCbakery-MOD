@@ -56,10 +56,22 @@
             if (item.food?.tags?.includes('drink')) return '饮料';
             return item.category === 'dish' ? '菜肴' : '原料';
         }
+        function ingredientOptions(recipeKey, ingredient) {
+            const result = [ingredient];
+            const add = value => {
+                if (Array.isArray(value)) for (const key of value) if (typeof key === 'string' && !result.includes(key)) result.push(key);
+            };
+            const itemAlternatives = catalog()[ingredient]?.ingredient_alternatives;
+            add(itemAlternatives?.normal);
+            const recipeAlternatives = catalog()[recipeKey]?.recipe?.ingredient_alternatives?.normal;
+            add(recipeAlternatives?.[ingredient]);
+            return result;
+        }
         function chain(key, visited = new Set()) {
             if (visited.has(key)) return [];
             const next = new Set(visited); next.add(key);
-            return [...new Set((catalog()[key]?.recipe?.ingredients || []).flatMap(k => [k, ...chain(k, next)]))];
+            return [...new Set((catalog()[key]?.recipe?.ingredients || []).flatMap(k =>
+                ingredientOptions(key, k).flatMap(option => [option, ...chain(option, next)])))];
         }
         function recipes() {
             return Object.keys(catalog()).filter(k => known(k) && catalog()[k].recipe?.ingredients?.length);
@@ -176,17 +188,37 @@
         function available(r, key, source) {
             return Math.max(0, (source === 'tray' ? r.tray[key] || 0 : amount(key)) - reserved(r, key, source));
         }
+        function planIngredients(recipeKey, r, supplied = new Set()) {
+            const ingredients = catalog()[recipeKey]?.recipe?.ingredients || [];
+            const used = new Map(), needed = {};
+            const availableFor = key => {
+                const tray = Math.max(0, available(r, key, 'tray') - (used.get('tray:' + key) || 0));
+                const stock = Math.max(0, available(r, key, 'stock') - (used.get('stock:' + key) || 0));
+                return { tray, stock };
+            };
+            for (const ingredient of ingredients) {
+                const options = ingredientOptions(recipeKey, ingredient);
+                if (options.some(key => supplied.has(key))) continue;
+                const choice = options.find(key => {
+                    const stock = availableFor(key);
+                    return stock.tray + stock.stock > 0;
+                });
+                if (!choice) return null;
+                const stock = availableFor(choice);
+                const source = stock.tray > 0 ? 'tray' : 'stock';
+                const id = source + ':' + choice;
+                used.set(id, (used.get(id) || 0) + 1);
+                needed[choice] = (needed[choice] || 0) + 1;
+            }
+            return needed;
+        }
         function canCook(key) {
             const r = state().session;
             if (!r || r.phase !== 'order' || r.paused || r.day !== env.day()) return { ok: false, reason: '请先接单' };
             if (!known(key) || !catalog()[key]?.recipe?.ingredients?.length) return { ok: false, reason: '未解锁' };
             if (env.tired()) return { ok: false, reason: '太疲惫' };
-            const needed = {};
-            for (const k of catalog()[key].recipe.ingredients) needed[k] = (needed[k] || 0) + 1;
-            // MVP uses the standard recipe; substitute ingredients are intentionally not auto-selected.
-            for (const [k, n] of Object.entries(needed)) {
-                if (available(r, k, 'tray') + available(r, k, 'stock') < n) return { ok: false, reason: '缺料' };
-            }
+            const needed = planIngredients(key, r);
+            if (!needed) return { ok: false, reason: '缺料' };
             return { ok: true, needed };
         }
         let kitchenRulesOverride = null;
@@ -202,12 +234,12 @@
             if (!known(key) || !recipe?.ingredients?.length) return { ok: false, reason: '未解锁' };
             if (env.tired()) return { ok: false, reason: '太疲惫' };
             const rules = kitchenRules(), supplied = new Set(Array.isArray(rules.supplied) ? rules.supplied : []);
-            const needed = {};
-            for (const ingredient of recipe.ingredients) needed[ingredient] = (needed[ingredient] || 0) + 1;
-            for (const [ingredient, count] of Object.entries(needed)) {
-                if (!supplied.has(ingredient) && typeof rules.allowed === 'function' && !rules.allowed(ingredient)) return { ok: false, reason: '食材受此厨房限制' };
-                if (!supplied.has(ingredient) && amount(ingredient) < count) return { ok: false, reason: '缺料' };
-            }
+            const needed = planIngredients(key, { selection: [], tray: {} }, supplied);
+            if (!needed) return { ok: false, reason: '缺料' };
+            if (typeof rules.allowed === 'function' && recipe.ingredients.some(ingredient => {
+                const options = ingredientOptions(key, ingredient);
+                return !options.some(option => supplied.has(option)) && !rules.allowed(ingredient);
+            })) return { ok: false, reason: '食材受此厨房限制' };
             if (Number.isFinite(rules.hourRestriction)) {
                 const future = env.minutes() + Number(recipe.cook_minutes) || env.minutes();
                 const hour = Math.floor((future % 1440) / 60), minute = future % 60;
@@ -341,7 +373,7 @@
             else offers();
         }
         function pause() { const r = run(); r.paused = true; }
-        return { version: '1.0.0', RENT, BUFFS, state, sync, leased, isOpenTime, known, amount, category, chain,
+        return { version: '1.0.1', RENT, BUFFS, state, sync, leased, isOpenTime, known, amount, category, chain,
             recipes, sellable, basePrice, rent, start, chooseBuff, accept, canCook, cook, kitchenRules, setKitchenRules, canCookStandalone, cookStandalone, select, remove, validate, submit, abandon, next,
             pause, close: () => { run(); finish('主动打烊'); }, available };
     };

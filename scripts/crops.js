@@ -1,4 +1,4 @@
-/* Crop registration shared by DoL 0.5.8.10 and 0.5.11.9. */
+/* Crop registration shared by DoL 0.5.8.10, 0.5.11.9 and 0.5.12.13. */
 (() => {
     'use strict';
 
@@ -82,6 +82,27 @@
         const inventory = v?.foodstuff || v?.plants;
         return Math.max(0, Number(inventory?.[key]?.amount) || 0);
     }
+
+    // The exploration market sells the first planting material for the five
+    // crops introduced by PC Bakery.  Once one unit is owned, the crop can be
+    // planted and later harvested as usual.
+    function grantSeed(key) {
+        if (!added.includes(key)) return false;
+        const v = State?.variables;
+        const inventory = v?.foodstuff || v?.plants;
+        if (!inventory) return false;
+        inventory[key] ||= v.foodstuff ? { amount: 0 } : {
+            name: key, plural: crops[key].plural || key, amount: 0
+        };
+        inventory[key].amount = Math.max(0, Number(inventory[key].amount) || 0) + 1;
+        return true;
+    }
+
+    function canBuySeed(key) {
+        return added.includes(key) && inventoryAmount(key) < 1;
+    }
+
+    function seedName(key) { return crops[key]?.name || crops[key]?.plural || key; }
 
     // Fruit/produce doubles as the planting material. Existing vanilla seeds
     // remain controlled by plants_known; the mod's crops only appear when one
@@ -196,7 +217,7 @@
 
     setup.pcBakeryCrops = {
         register, ensureSave, cleanup, installSeasonPause, installPlantingGuard,
-        availablePlantKeys, beginPlanting, plantingBed, keys, added
+        availablePlantKeys, beginPlanting, plantingBed, grantSeed, canBuySeed, seedName, keys, added
     };
     $(document).on(':passagestart.pcBakeryCrops', () => {
         register();

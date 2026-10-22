@@ -7,13 +7,17 @@
 <br>
 <span class="gold" data-pc-bakery-woodland>灌木地（<<print setup.pcBakeryFarm.count("shrub")>> 块）</span>
 <br>
+<<capture _location _plotsToWater _water_needed _tPass _tStatup>>
 <<display_plot pcBakeryShrubs>>
+<</capture>>
 <</if>>
 <<if _pcTreeLevel gte 1>>
 <br>
 <span class="gold" data-pc-bakery-woodland>乔木地（<<print setup.pcBakeryFarm.count("tree")>> 块）</span>
 <br>
+<<capture _location _plotsToWater _water_needed _tPass _tStatup>>
 <<display_plot pcBakeryTrees>>
+<</capture>>
 <</if>>
 <</widget>>
 
@@ -26,15 +30,15 @@
 <<if _pcUpgrade.current gte 3>>
     <span class="green">已达到最大规模（<<print _pcUpgrade.count>> 块）</span>
 <<elseif $farm.build is _pcNext.token>>
-    <span class="blue">正在建设，完成后有 <<print _pcNext.count>> 块土地</span>
+    <span>正在建设，完成后有 <<print _pcNext.count>> 块土地</span>
 <<elseif $farm.build>>
-    <span class="blue">农场正在进行其他建设</span>
+    <span>农场正在进行其他建设</span>
 <<elseif $farm.woodland < _pcNext.woodland>>
-    <span class="blue">需要林地达到 <<print _pcNext.woodland>> 级</span>
+    <span>需要林地达到 <<print _pcNext.woodland>> 级</span>
 <<elseif $money < _pcNext.cost>>
     <span class="red">需要 £<<print Math.floor(_pcNext.cost / 100)>></span>
 <<else>>
-    <span class="blue">下一阶段：<<print _pcNext.count>> 块土地，费用 £<<print Math.floor(_pcNext.cost / 100)>>，施工 <<print _pcNext.days>> 天。</span>
+    <span>下一阶段：<<print _pcNext.count>> 块土地，费用 £<<print Math.floor(_pcNext.cost / 100)>>，施工 <<print _pcNext.days>> 天。</span>
     <<capture _pcType>>
         <<link "开始建设" $passage>>
             <<if setup.pcBakeryFarm.startUpgrade(_pcType)>><<pass 20>><</if>>
