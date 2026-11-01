@@ -1,6 +1,9 @@
 {
   "name": "PCBakery",
-  "version": "1.0.1",
+  "version": "2.0.0",
+  "scriptFileList_inject_early": [
+    "scripts/wiki-core.js"
+  ],
   "scriptFileList": [
     "scripts/food-baseline.js",
     "scripts/legacy.js",
@@ -11,10 +14,23 @@
     "scripts/ingredient-recipes.js",
     "scripts/drinks.js",
     "scripts/bakery.js",
-    "scripts/hunting.js"
+    "scripts/hunting.js",
+    "scripts/vanity-core.js",
+    "scripts/clothing-settings-core.js",
+    "scripts/vanity-renderer.js",
+    "scripts/vanity-wardrobe.js",
+    "scripts/vanity-shop-core.js",
+    "scripts/vanity-shop.js",
+    "scripts/shop-outfits-core.js",
+    "scripts/shop-outfits.js",
+    "scripts/clothing-settings.js",
+    "scripts/game-reader.js",
+    "scripts/wiki-doli.js"
   ],
   "styleFileList": [
-    "styles/bakery.css"
+    "styles/bakery.css",
+    "styles/vanity.css",
+    "styles/wiki.css"
   ],
   "tweeFileList": [
     "game/bakery.twee",

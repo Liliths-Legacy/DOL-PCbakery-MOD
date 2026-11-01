@@ -556,17 +556,28 @@
     }
     function renderBakerySettings(parent) {
         const options = State.variables.options || (State.variables.options = {});
-        const row = node('div', undefined, 'settingsToggleItem pcb-settings');
+        const root = node('div', undefined, 'pcb-options');
+        root.append(node('div', 'PC的面包坊 v' + api.version, 'pcb-settings-description'));
+        const kitchen = node('section', undefined, 'solidBorderContainer settings-container');
+        kitchen.append(node('div', '厨房', 'settingsHeader'));
+        const row = node('div', undefined, 'settingsToggleItemWide pcb-setting-row');
         const labelNode = node('label');
         const input = node('input'); input.type = 'checkbox'; input.checked = options.pcBakeryReplaceKitchen === true;
         input.addEventListener('change', () => { options.pcBakeryReplaceKitchen = input.checked; });
-        labelNode.append(input, node('span', '面包坊外是否替换原版厨房'));
-        row.append(labelNode, node('p', '开启后，原版厨房会使用面包坊的食谱界面，只保留详情和制作。', 'small-description'));
-        parent.append(row);
-        const cleanupRow = node('div', undefined, 'settingsToggleItem pcb-settings');
-        cleanupRow.append(node('p', '卸载前整理存档', 'bold'));
-        cleanupRow.append(node('p', '卸载本模组前使用：清空本模组开放种植的 13 种水果及 5 种新作物的田地，移除对应种子和本模组新增的三道原料配方，并删除 5 种新作物及 12 种饮料的库存。原版物品库存会保留。操作后请另存存档，再卸载模组。', 'small-description'));
-        const result = node('p', '', 'small-description');
+        labelNode.append(input, node('span', '在面包坊外替换原版厨房'));
+        row.append(labelNode, node('small', '开启后，原版厨房会使用面包坊的食谱界面，只保留详情和制作。'));
+        kitchen.append(row); root.append(kitchen);
+        setup.pcClothing?.renderSettings?.(root);
+        setup.pcWiki?.renderSettings?.(root);
+        const cleanupSection = node('section', undefined, 'solidBorderContainer settings-container');
+        cleanupSection.append(node('div', '存档维护', 'settingsHeader'));
+        const cleanupRow = node('div', undefined, 'settingsToggleItemWide pcb-setting-row');
+        const details = node('details', undefined, 'pcb-cleanup-details');
+        details.append(node('summary', '卸载前整理存档'));
+        details.append(node('p', '请先备份存档。整理会清空本模组开放种植的 13 种水果及 5 种新作物的田地，移除对应种子和三道新增原料配方，并删除 5 种新作物及 12 种饮料的库存。原版物品库存会保留。', 'pcb-settings-description'));
+        details.append(node('p', '整理后请另存存档，再卸载模组。如使用了时装功能，还需先关闭“衣着系统优化”，将时装退回主衣柜。', 'pcb-settings-description'));
+        const result = node('p', '', 'pcb-settings-description');
+        result.setAttribute('aria-live', 'polite');
         if (State.variables.pcBakeryCropsRemoved) {
             result.textContent = '此存档已经整理。请另存存档，再卸载模组。';
         } else {
@@ -576,10 +587,10 @@
                 cleanButton.disabled = true;
                 result.textContent = `已整理 ${report.plots} 块田地，移除 ${report.items} 件模组新增物品。请另存存档，再卸载模组。`;
             });
-            cleanupRow.append(cleanButton);
+            details.append(cleanButton);
         }
-        cleanupRow.append(result);
-        parent.append(cleanupRow);
+        details.append(result); cleanupRow.append(details); cleanupSection.append(cleanupRow); root.append(cleanupSection);
+        parent.append(root);
     }
     function installBakerySettingsTab() {
         if (!document?.querySelector) return;
@@ -591,12 +602,17 @@
             tab.addEventListener('click', () => {
                 const content = document.querySelector('#customOverlayContent');
                 if (!content) return;
-                tabs.querySelectorAll('button').forEach(button => button.classList.remove('active'));
-                tab.classList.add('active'); content.replaceChildren(); renderBakerySettings(content);
+                tabs.querySelectorAll('button').forEach(button => button.classList.remove('tab-selected', 'active'));
+                tab.classList.add('tab-selected'); content.replaceChildren(); renderBakerySettings(content); content.scrollTop = 0;
             });
-            tabs.append(tab);
+            const buttons = tabs.querySelectorAll(':scope > button');
+            tabs.insertBefore(tab, buttons[buttons.length - 1] || null);
+            tabs.addEventListener('click', event => {
+                if (event.target.closest('button') !== tab) tab.classList.remove('tab-selected');
+            }, true);
         }
     }
+    api.renderSettings = renderBakerySettings;
     function installBakerySettingsObserver() {
         if (typeof MutationObserver !== 'function' || !document?.body) return;
         const observer = new MutationObserver(installBakerySettingsTab);

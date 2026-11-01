@@ -1,0 +1,9 @@
+.pc-vanity-controls { margin: .5em 0 1em; padding: .65em; border: 1px solid var(--400, #666); }
+.pc-vanity-watermark { margin-bottom: .4em; font-size: .75em; line-height: 1.4; text-align: left; }
+.pc-vanity-controls > strong, .pc-vanity-controls > button, .pc-vanity-controls > label { margin-right: .75em; }
+.pc-vanity-controls > label { display: inline-block; }
+.pc-vanity-description { margin-top: .5em; font-size: .9em; opacity: .85; }
+.pc-vanity-notice { margin-top: .5em; color: var(--gold, #d6b44a); }
+.pc-shop-outfits { margin: .5em 0 1em; padding: .5em; border: 1px solid var(--400, #666); }
+.pc-shop-outfits > summary { cursor: pointer; }
+.pc-shop-outfits-content { margin-top: .5em; }

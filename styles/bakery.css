@@ -42,10 +42,20 @@
 .pcb-muted { margin-left: .5rem; font-size: .8em; opacity: .7; }
 .pcb-empty { font-size: .85em; opacity: .7; padding: .3rem 0; }
 .pcb-notice { color: #edb97b; }
-.settingsToggleItem.pcb-settings { display: block; height: auto; padding: .65rem 0; }
-.pcb-settings label { display: flex; align-items: center; gap: .45rem; }
-.pcb-settings input { margin: 0; }
-.pcb-settings .small-description { margin: .35rem 0 0 1.55rem; font-size: .85em; opacity: .8; }
+.pcb-options { display: grid; gap: 1rem; padding: .25rem 0; }
+.pcb-options > .settings-container { margin: 0; min-width: 0; }
+.pcb-options .settingsHeader { margin-bottom: .4rem; }
+.pcb-options .pcb-setting-row { display: block; width: auto; height: auto; min-height: 0; padding: .7rem .85rem; box-sizing: border-box; }
+.pcb-options .pcb-setting-row + .pcb-setting-row { border-top: 1px solid var(--700, #444); }
+.pcb-options .pcb-setting-row label { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; line-height: 1.5; cursor: pointer; }
+.pcb-options input[type="checkbox"] { flex: 0 0 auto; margin: 0; }
+.pcb-options .pcb-setting-row small { display: block; margin: .35rem 0 0; font-size: .85em; line-height: 1.6; opacity: .8; }
+.pcb-options .pcb-settings-description { margin: .5rem .85rem; font-size: .85em; line-height: 1.6; overflow-wrap: anywhere; }
+.pcb-options .pcb-setting-row .pcb-settings-description { margin: .6rem 0; }
+.pcb-options .pcwiki-status { opacity: .85; }
+.pcb-options select { max-width: 100%; width: auto; }
+.pcb-options .pcb-cleanup-details summary { cursor: pointer; color: var(--gold, #d9b96f); }
+.pcb-options .pcb-cleanup-details button { margin-top: .5rem; }
 .pcb-settings-tab { white-space: nowrap; }
 @media(max-width: 500px) {
     .pcb-book { margin-left: 0; }

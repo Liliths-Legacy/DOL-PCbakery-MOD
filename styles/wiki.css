@@ -1,0 +1,5 @@
+.pcwiki-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .4em .8em; padding: .5em .7em; border-bottom: 1px solid var(--700, #555); font-size: .85em; }
+.pcwiki-toolbar label { display: inline-flex; align-items: center; white-space: nowrap; gap: .2em; margin: 0; }
+.pcwiki-toolbar input[type=checkbox] { margin: 0; }
+.pcwiki-toolbar select { width: auto; max-width: 12em; font: inherit; padding: .2em; }
+.pcwiki-status { flex-basis: 100%; line-height: 1.4; opacity: .85; }
